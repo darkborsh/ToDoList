@@ -10,11 +10,14 @@ public class TaskManager {
 
     public static void add_task(String command) {
         String rest = take_rest(command);
-        if (!rest.equals("")) {
-            tasklist.add(rest);
+        if (rest.contains("\n")) {
+            System.out.println("*Description of new task has \\n symbol*");
+        }
+        else if (rest.equals("")){
+            System.out.println("*Description of new task is empty*");
         }
         else {
-            System.out.println("*Description of new task is empty*");
+            tasklist.add(rest);
         }
     }
 
