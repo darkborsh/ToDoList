@@ -1,8 +1,10 @@
-package homework1;
+package service;
+
+import model.TaskList;
 
 import java.util.Scanner;
 
-class TaskManager {
+public class TaskManager {
     static TaskList tasklist;
     static boolean is_working;
 

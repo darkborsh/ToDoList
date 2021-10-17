@@ -1,11 +1,11 @@
-package homework1;
+package model;
 
 import java.util.ArrayList;
 
-class TaskList {
+public class TaskList {
     private ArrayList<Task> tasks;
 
-    TaskList() {
+    public TaskList() {
         tasks = new ArrayList<>(1);
     }
 

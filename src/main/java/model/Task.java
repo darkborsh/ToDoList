@@ -1,6 +1,6 @@
-package homework1;
+package model;
 
-class Task {
+public class Task {
     private boolean status;
     private String description;
 
