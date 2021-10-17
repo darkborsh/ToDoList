@@ -1,8 +1,7 @@
-package homework1;
+import service.TaskManager;
 
 public class Main {
-
     public static void main(String[] args) {
-        System.out.println("Java hard!");
+        TaskManager.work();
     }
 }
