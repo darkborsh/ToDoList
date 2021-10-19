@@ -23,15 +23,17 @@ public class TaskList {
     }
 
     public void print() {
-        for (Task task : tasks) {
-            task.print();
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.print(i + 1 + ". ");
+            tasks.get(i).print();
         }
     }
 
-    public void print_unchecked() {
-        for (Task task : tasks) {
-            if (!task.get_status()) {
-                task.print();
+    public void printIncomplete() {
+        for (int i = 0; i < tasks.size(); i++) {
+            if (!tasks.get(i).isComplete()) {
+                System.out.print(i + 1 + ". ");
+                tasks.get(i).print();
             }
         }
     }

@@ -2,50 +2,54 @@ package service;
 
 import model.TaskList;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 
 public class TaskManager {
-    static TaskList tasklist;
-    static boolean is_working;
+    final static String COMMAND_ADD = "add";
+    final static String COMMAND_PRINT = "print";
+    final static String COMMAND_TOGGLE = "toggle";
+    final static String COMMAND_QUIT = "quit";
 
-    public static void add_task(String command) {
-        String rest = take_rest(command);
+
+    static TaskList tasklist;
+    static boolean isWorking;
+
+    public static void addTask(String command) {
+        String rest = takeRest(command).trim();
         if (rest.contains("\n")) {
             System.out.println("*Description of new task has \\n symbol*");
-        }
-        else if (rest.equals("")){
+        } else if (rest.equals("")) {
             System.out.println("*Description of new task is empty*");
-        }
-        else {
+        } else {
             tasklist.add(rest);
         }
     }
 
-    public static void print_tasks(String command) {
-        String rest = take_rest(command);
+    public static void printTasks(String command) {
+        String rest = takeRest(command);
         if (rest.equals("all")) {
             tasklist.print();
-        }
-        else if (rest.equals("")) {
-            tasklist.print_unchecked();
-        }
-        else {
+        } else if (rest.equals("")) {
+            tasklist.printIncomplete();
+        } else {
             System.out.println("*Invalid arguments for the command print*");
         }
     }
 
-    public static void toggle_task(String command) {
-        String rest = take_rest(command);
+    public static void toggleTask(String command) {
+        String rest = takeRest(command).trim();
         if (rest.equals("")) {
             System.out.println("*Invalid arguments for the command toggle*");
-        }
-        else {
+        } else {
             try {
                 int num = Integer.parseInt(rest);
-                if (num > tasklist.size() - 1 || num < tasklist.size() - 1)
+                if (num <= 0 || num > tasklist.size()) {
                     System.out.println("*There is no element with such a number to toggle*");
-                else {
-                    tasklist.get(num).toggle();
+                } else {
+                    tasklist.get(num - 1).toggle();
                 }
             }
             catch (NumberFormatException nfe) {
@@ -55,56 +59,45 @@ public class TaskManager {
         }
     }
 
-    private static String get_key(String command) {
+    private static String getKey(String command) {
         int index = command.indexOf(' ');
         if (index > -1) {
             return command.substring(0, index);
-        }
-        else {
+        } else {
             return command;
         }
     }
 
-    private static String take_rest(String command) {
+    private static String takeRest(String command) {
         int index = command.indexOf(' ');
         if (index > -1) {
             return command.substring(index + 1);
-        }
-        else {
+        } else {
             return "";
         }
     }
 
-    private static void show_help() {
-        System.out.println("All commands:\nadd <task description>\nprint [all] (print or print all)\n" +
-                "toggle <id>\nquit"
-        );
-    }
-
-    private static void get_command() {
-        Scanner scanner = new Scanner(System.in);
+    private static void getCommand() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.print("command:");
 
-        String command = scanner.nextLine();
+        String command = reader.readLine();
 
-        String key = get_key(command);
+        String key = getKey(command);
 
         switch (key) {
-            case ("add"):
-                add_task(command);
+            case (COMMAND_ADD):
+                addTask(command);
                 break;
-            case ("print"):
-                print_tasks(command);
+            case (COMMAND_PRINT):
+                printTasks(command);
                 break;
-            case ("toggle"):
-                toggle_task(command);
+            case (COMMAND_TOGGLE):
+                toggleTask(command);
                 break;
-            case ("quit"):
-                is_working = false;
-                break;
-            case ("help"):
-                show_help();
+            case (COMMAND_QUIT):
+                isWorking = false;
                 break;
             default:
                 System.out.println("*Invalid command*");
@@ -112,13 +105,13 @@ public class TaskManager {
         }
     }
 
-    public static void work() {
-        is_working = true;
+    public static void work() throws IOException {
+        isWorking = true;
         tasklist = new TaskList();
 
-        System.out.println("Welcome to ToDoList!\nPrint your commands below or write \"help\" to get command list");
-        while (is_working) {
-            get_command();
+        System.out.println("Welcome to ToDoList!\nPrint your commands below");
+        while (isWorking) {
+            getCommand();
         }
     }
 }
