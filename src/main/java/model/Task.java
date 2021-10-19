@@ -1,21 +1,21 @@
 package model;
 
 public class Task {
-    private boolean isComplete;
+    private boolean isCompleted;
     private String description;
 
     public Task(String desc) {
-        isComplete = false;
+        isCompleted = false;
         description = desc;
     }
 
-    public boolean isComplete() {
-        return isComplete;
+    public boolean isCompleted() {
+        return isCompleted;
     }
 
     public void print() {
         System.out.print("[");
-        if (isComplete) {
+        if (isCompleted) {
             System.out.print("x");
         } else {
             System.out.print(" ");
@@ -25,6 +25,6 @@ public class Task {
     }
 
     public void toggle() {
-        isComplete = !isComplete;
+        isCompleted = !isCompleted;
     }
 }

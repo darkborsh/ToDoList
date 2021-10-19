@@ -14,7 +14,7 @@ public class TaskManager {
     final static String COMMAND_QUIT = "quit";
 
 
-    static TaskList tasklist;
+    static TaskList taskList;
     static boolean isWorking;
 
     public static void addTask(String command) {
@@ -24,16 +24,16 @@ public class TaskManager {
         } else if (rest.equals("")) {
             System.out.println("*Description of new task is empty*");
         } else {
-            tasklist.add(rest);
+            taskList.add(rest);
         }
     }
 
     public static void printTasks(String command) {
         String rest = takeRest(command);
         if (rest.equals("all")) {
-            tasklist.print();
+            taskList.print();
         } else if (rest.equals("")) {
-            tasklist.printIncomplete();
+            taskList.printIncomplete();
         } else {
             System.out.println("*Invalid arguments for the command print*");
         }
@@ -46,10 +46,10 @@ public class TaskManager {
         } else {
             try {
                 int num = Integer.parseInt(rest);
-                if (num <= 0 || num > tasklist.size()) {
+                if (num <= 0 || num > taskList.size()) {
                     System.out.println("*There is no element with such a number to toggle*");
                 } else {
-                    tasklist.get(num - 1).toggle();
+                    taskList.get(num - 1).toggle();
                 }
             }
             catch (NumberFormatException nfe) {
@@ -107,7 +107,7 @@ public class TaskManager {
 
     public static void work() throws IOException {
         isWorking = true;
-        tasklist = new TaskList();
+        taskList = new TaskList();
 
         System.out.println("Welcome to ToDoList!\nPrint your commands below");
         while (isWorking) {

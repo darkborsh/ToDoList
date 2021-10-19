@@ -31,7 +31,7 @@ public class TaskList {
 
     public void printIncomplete() {
         for (int i = 0; i < tasks.size(); i++) {
-            if (!tasks.get(i).isComplete()) {
+            if (!tasks.get(i).isCompleted()) {
                 System.out.print(i + 1 + ". ");
                 tasks.get(i).print();
             }
