@@ -6,22 +6,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-
 public class TaskManager {
     final static String COMMAND_ADD = "add";
     final static String COMMAND_PRINT = "print";
     final static String COMMAND_TOGGLE = "toggle";
     final static String COMMAND_QUIT = "quit";
 
-
     static TaskList taskList;
     static boolean isWorking;
 
     public static void addTask(String command) {
         String rest = takeRest(command).trim();
-        if (rest.contains("\n")) {
-            System.out.println("*Description of new task has \\n symbol*");
-        } else if (rest.equals("")) {
+        if (rest.equals("")) {
             System.out.println("*Description of new task is empty*");
         } else {
             taskList.add(rest);
@@ -30,10 +26,9 @@ public class TaskManager {
 
     public static void printTasks(String command) {
         String rest = takeRest(command);
-        if (rest.equals("all")) {
-            taskList.print();
-        } else if (rest.equals("")) {
-            taskList.printIncomplete();
+        boolean allPrinted = rest.equals("all");
+        if (allPrinted || rest.equals("")) {
+            taskList.print(allPrinted);
         } else {
             System.out.println("*Invalid arguments for the command print*");
         }
@@ -53,7 +48,6 @@ public class TaskManager {
                 }
             }
             catch (NumberFormatException nfe) {
-                System.out.println("NumberFormatException: " + nfe.getMessage());
                 System.out.println("*Invalid arguments for the command toggle*");
             }
         }
@@ -79,8 +73,6 @@ public class TaskManager {
 
     private static void getCommand() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-        System.out.print("command:");
 
         String command = reader.readLine();
 
@@ -109,7 +101,6 @@ public class TaskManager {
         isWorking = true;
         taskList = new TaskList();
 
-        System.out.println("Welcome to ToDoList!\nPrint your commands below");
         while (isWorking) {
             getCommand();
         }

@@ -18,22 +18,14 @@ public class TaskList {
     }
 
     public void add(String desc) {
-        if (tasks.size() == 0) tasks.add(new Task(desc));
-        else tasks.set(0, new Task(desc));
+        if (tasks.isEmpty()) tasks.add(new Task(1, desc));
+        else tasks.set(0, new Task(1, desc));
     }
 
-    public void print() {
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.print(i + 1 + ". ");
-            tasks.get(i).print();
-        }
-    }
-
-    public void printIncomplete() {
-        for (int i = 0; i < tasks.size(); i++) {
-            if (!tasks.get(i).isCompleted()) {
-                System.out.print(i + 1 + ". ");
-                tasks.get(i).print();
+    public void print(boolean allPrinted) {
+        for (Task curTask : tasks) {
+            if (allPrinted || !curTask.isCompleted()) {
+                curTask.print();
             }
         }
     }

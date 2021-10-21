@@ -1,10 +1,12 @@
 package model;
 
 public class Task {
+    private int id;
     private boolean isCompleted;
     private String description;
 
-    public Task(String desc) {
+    public Task(int taskId, String desc) {
+        id = taskId;
         isCompleted = false;
         description = desc;
     }
@@ -14,14 +16,7 @@ public class Task {
     }
 
     public void print() {
-        System.out.print("[");
-        if (isCompleted) {
-            System.out.print("x");
-        } else {
-            System.out.print(" ");
-        }
-        System.out.print("] ");
-        System.out.println(description);
+        System.out.printf("%d. [%s] %s\n", id, isCompleted ? "x" : " ", description);
     }
 
     public void toggle() {
