@@ -6,7 +6,7 @@ public class TaskList {
     private ArrayList<Task> tasks;
 
     public TaskList() {
-        tasks = new ArrayList<>(1);
+        tasks = new ArrayList<>();
     }
 
     public int size() {
@@ -18,8 +18,7 @@ public class TaskList {
     }
 
     public void add(String desc) {
-        if (tasks.isEmpty()) tasks.add(new Task(1, desc));
-        else tasks.set(0, new Task(1, desc));
+        tasks.add(new Task(tasks.size() + 1, desc));
     }
 
     public void print(boolean allPrinted) {

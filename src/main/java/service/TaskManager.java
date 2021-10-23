@@ -15,7 +15,7 @@ public class TaskManager {
     static TaskList taskList;
     static boolean isWorking;
 
-    public static void addTask(String command) {
+    private static void addTask(String command) {
         String rest = takeRest(command).trim();
         if (rest.equals("")) {
             System.out.println("*Description of new task is empty*");
@@ -24,7 +24,7 @@ public class TaskManager {
         }
     }
 
-    public static void printTasks(String command) {
+    private static void printTasks(String command) {
         String rest = takeRest(command);
         boolean allPrinted = rest.equals("all");
         if (allPrinted || rest.equals("")) {
@@ -34,7 +34,7 @@ public class TaskManager {
         }
     }
 
-    public static void toggleTask(String command) {
+    private static void toggleTask(String command) {
         String rest = takeRest(command).trim();
         if (rest.equals("")) {
             System.out.println("*Invalid arguments for the command toggle*");
