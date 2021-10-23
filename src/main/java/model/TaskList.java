@@ -18,7 +18,28 @@ public class TaskList {
     }
 
     public void add(String desc) {
-        tasks.add(new Task(tasks.size() + 1, desc));
+        if (tasks.isEmpty()) {
+            tasks.add(new Task(1, desc));
+        } else {
+            tasks.add(new Task(tasks.get(tasks.size() - 1).getId() + 1, desc));
+        }
+    }
+
+    public int searchById(int specifiedId) {
+        int low = 0;
+        int high = tasks.size() - 1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (tasks.get(mid).getId() < specifiedId) {
+                low = mid + 1;
+            } else if (tasks.get(mid).getId() > specifiedId) {
+                high = mid - 1;
+            } else if (tasks.get(mid).getId() == specifiedId) {
+                return mid;
+            }
+        }
+        return -1;
     }
 
     public void remove(int index) {

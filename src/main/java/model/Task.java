@@ -11,6 +11,10 @@ public class Task {
         description = desc;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public boolean isCompleted() {
         return isCompleted;
     }

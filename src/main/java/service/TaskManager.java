@@ -16,26 +16,25 @@ public class TaskManager {
     static TaskList taskList;
     static boolean isWorking;
 
-    private static void addTask(String command) {
-        String rest = takeRest(command).trim();
-        if (rest.equals("")) {
+    private static void addTask(String arg) {
+        if (arg.equals("")) {
             System.out.println("*Description of new task is empty*");
         } else {
-            taskList.add(rest);
+            taskList.add(arg);
         }
     }
 
-    private static void deleteTask(String command) {
-        String rest = takeRest(command).trim();
+    private static void deleteTask(String rest) {
         if (rest.equals("")) {
             System.out.println("*Invalid arguments for the command delete*");
         } else {
             try {
                 int num = Integer.parseInt(rest);
-                if (num <= 0 || num > taskList.size()) {
+                int index = taskList.searchById(num);
+                if (index == -1) {
                     System.out.println("*There is no element with such a number to delete*");
                 } else {
-                    taskList.remove(num - 1);
+                    taskList.remove(index);
                 }
             }
             catch (NumberFormatException nfe) {
@@ -44,8 +43,7 @@ public class TaskManager {
         }
     }
 
-    private static void printTasks(String command) {
-        String rest = takeRest(command);
+    private static void printTasks(String rest) {
         boolean allPrinted = rest.equals("all");
         if (allPrinted || rest.equals("")) {
             taskList.print(allPrinted);
@@ -54,17 +52,17 @@ public class TaskManager {
         }
     }
 
-    private static void toggleTask(String command) {
-        String rest = takeRest(command).trim();
+    private static void toggleTask(String rest) {
         if (rest.equals("")) {
             System.out.println("*Invalid arguments for the command toggle*");
         } else {
             try {
                 int num = Integer.parseInt(rest);
-                if (num <= 0 || num > taskList.size()) {
+                int index = taskList.searchById(num);
+                if (index == -1) {
                     System.out.println("*There is no element with such a number to toggle*");
                 } else {
-                    taskList.get(num - 1).toggle();
+                    taskList.get(index).toggle();
                 }
             }
             catch (NumberFormatException nfe) {
@@ -73,19 +71,19 @@ public class TaskManager {
         }
     }
 
-    private static String getKey(String command) {
-        int index = command.indexOf(' ');
+    private static String getKey(String userInput) {
+        int index = userInput.indexOf(' ');
         if (index > -1) {
-            return command.substring(0, index);
+            return userInput.substring(0, index);
         } else {
-            return command;
+            return userInput;
         }
     }
 
-    private static String takeRest(String command) {
-        int index = command.indexOf(' ');
+    private static String takeRest(String userInput) {
+        int index = userInput.indexOf(' ');
         if (index > -1) {
-            return command.substring(index + 1);
+            return userInput.substring(index + 1);
         } else {
             return "";
         }
@@ -94,22 +92,23 @@ public class TaskManager {
     private static void getCommand() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        String command = reader.readLine();
+        String userInput = reader.readLine();
 
-        String key = getKey(command);
+        String command = getKey(userInput);
+        String arg = takeRest(userInput).trim();
 
-        switch (key) {
+        switch (command) {
             case (COMMAND_ADD):
-                addTask(command);
+                addTask(arg);
                 break;
             case (COMMAND_PRINT):
-                printTasks(command);
+                printTasks(arg);
                 break;
             case (COMMAND_TOGGLE):
-                toggleTask(command);
+                toggleTask(arg);
                 break;
             case (COMMAND_DELETE):
-                deleteTask(command);
+                deleteTask(arg);
                 break;
             case (COMMAND_QUIT):
                 isWorking = false;
