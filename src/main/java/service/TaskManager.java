@@ -10,6 +10,7 @@ public class TaskManager {
     final static String COMMAND_ADD = "add";
     final static String COMMAND_PRINT = "print";
     final static String COMMAND_TOGGLE = "toggle";
+    final static String COMMAND_DELETE = "delete";
     final static String COMMAND_QUIT = "quit";
 
     static TaskList taskList;
@@ -21,6 +22,25 @@ public class TaskManager {
             System.out.println("*Description of new task is empty*");
         } else {
             taskList.add(rest);
+        }
+    }
+
+    private static void deleteTask(String command) {
+        String rest = takeRest(command).trim();
+        if (rest.equals("")) {
+            System.out.println("*Invalid arguments for the command delete*");
+        } else {
+            try {
+                int num = Integer.parseInt(rest);
+                if (num <= 0 || num > taskList.size()) {
+                    System.out.println("*There is no element with such a number to delete*");
+                } else {
+                    taskList.remove(num - 1);
+                }
+            }
+            catch (NumberFormatException nfe) {
+                System.out.println("*Invalid arguments for the command delete*");
+            }
         }
     }
 
@@ -87,6 +107,9 @@ public class TaskManager {
                 break;
             case (COMMAND_TOGGLE):
                 toggleTask(command);
+                break;
+            case (COMMAND_DELETE):
+                deleteTask(command);
                 break;
             case (COMMAND_QUIT):
                 isWorking = false;

@@ -21,6 +21,10 @@ public class TaskList {
         tasks.add(new Task(tasks.size() + 1, desc));
     }
 
+    public void remove(int index) {
+        tasks.remove(index);
+    }
+
     public void print(boolean allPrinted) {
         for (Task curTask : tasks) {
             if (allPrinted || !curTask.isCompleted()) {
