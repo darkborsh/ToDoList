@@ -1,9 +1,10 @@
 package model;
 
+import java.util.List;
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private List<Task> tasks;
 
     public TaskList() {
         tasks = new ArrayList<>();
