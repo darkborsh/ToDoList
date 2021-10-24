@@ -15,6 +15,14 @@ public class Task {
         return id;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String newDesc) {
+        description = newDesc;
+    }
+
     public boolean isCompleted() {
         return isCompleted;
     }

@@ -46,6 +46,10 @@ public class TaskList {
         tasks.remove(index);
     }
 
+    public void edit(int index, String newDesc) {
+        tasks.get(index).setDescription(newDesc);
+    }
+
     public void print(boolean allPrinted) {
         for (Task curTask : tasks) {
             if (allPrinted || !curTask.isCompleted()) {

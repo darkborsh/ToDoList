@@ -11,6 +11,7 @@ public class TaskManager {
     final static String COMMAND_PRINT = "print";
     final static String COMMAND_TOGGLE = "toggle";
     final static String COMMAND_DELETE = "delete";
+    final static String COMMAND_EDIT = "edit";
     final static String COMMAND_QUIT = "quit";
 
     static TaskList taskList;
@@ -26,7 +27,7 @@ public class TaskManager {
 
     private static void deleteTask(String rest) {
         if (rest.equals("")) {
-            System.out.println("*Invalid arguments for the command delete*");
+            System.out.println("*Empty argument for the command delete*");
         } else {
             try {
                 int num = Integer.parseInt(rest);
@@ -71,6 +72,30 @@ public class TaskManager {
         }
     }
 
+    private static void editTask(String restWithNum) {
+        if (restWithNum.equals("")) {
+            System.out.println("*Invalid arguments for the command edit*");
+        } else {
+            try {
+                int num = Integer.parseInt(getKey(restWithNum));
+                int index = taskList.searchById(num);
+                if (index == -1) {
+                    System.out.println("*There is no element with such a number to edit*");
+                } else {
+                    String rest = takeRest(restWithNum);
+                    if (rest.equals("")) {
+                        System.out.println("*New description in command edit is empty*");
+                    } else {
+                        taskList.edit(index, rest);
+                    }
+                }
+            }
+            catch (NumberFormatException nfe) {
+                System.out.println("*Invalid arguments for the command edit*");
+            }
+        }
+    }
+
     private static String getKey(String userInput) {
         int index = userInput.indexOf(' ');
         if (index > -1) {
@@ -109,6 +134,9 @@ public class TaskManager {
                 break;
             case (COMMAND_DELETE):
                 deleteTask(arg);
+                break;
+            case (COMMAND_EDIT):
+                editTask(arg);
                 break;
             case (COMMAND_QUIT):
                 isWorking = false;
