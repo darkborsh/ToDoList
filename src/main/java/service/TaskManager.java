@@ -14,107 +14,130 @@ public class TaskManager {
     final static String COMMAND_EDIT = "edit";
     final static String COMMAND_SEARCH = "search";
     final static String COMMAND_QUIT = "quit";
+    final static int EMPTY_ARGUMENT = 1;
+    final static int INVALID_ARGUMENT = 2;
+    final static int LESS_OR_EQ_ZERO_ARGUMENT = 3;
+    final static int OUT_OF_RANGE_ARGUMENT = 4;
+    final static int EMPTY_SUBSTRING = 5;
 
     static TaskList taskList;
     static boolean isWorking;
 
-    private static void addTask(String arg) {
+    private static void help(String commandName, int errNum) {
+        switch (errNum) {
+            case (EMPTY_ARGUMENT):
+                System.out.printf("*Empty argument for the command %s*\n", commandName);
+                break;
+            case (INVALID_ARGUMENT):
+                System.out.printf("*Invalid argument for the command %s*\n", commandName);
+                break;
+            case (LESS_OR_EQ_ZERO_ARGUMENT):
+                System.out.printf("*Argument can't be less than or equal to 0 for the command %s*\n", commandName);
+                break;
+            case (OUT_OF_RANGE_ARGUMENT):
+                System.out.printf("*There is no element with such a number to %s*\n", commandName);
+                break;
+            case (EMPTY_SUBSTRING):
+                System.out.printf("*There is no substring in the tasks you are looking for, in %s*\n", commandName);
+                break;
+        }
+    }
+
+    private static boolean argIsNotEmpty(String commandName, String arg) {
         if (arg.equals("")) {
-            System.out.println("*Description of new task is empty*");
-        } else {
+            help(commandName, EMPTY_ARGUMENT);
+            return false;
+        }
+        return true;
+    }
+
+    private static Integer makeNum(String commandName, String arg) {
+        try {
+            return Integer.parseInt(arg);
+        }
+        catch (NumberFormatException nfe) {
+            help(commandName, INVALID_ARGUMENT);
+        }
+        return Integer.MIN_VALUE;
+    }
+
+    private static boolean isIntArgumentGood(String commandName, int num) {
+        if (num == Integer.MIN_VALUE) {
+            return false;
+        }
+        if (num <= 0) {
+            help(commandName, LESS_OR_EQ_ZERO_ARGUMENT);
+            return false;
+        }
+        return true;
+    }
+
+    private static boolean isIndexCorrect(String commandName, int index) {
+        if (index == -1) {
+            help(commandName, OUT_OF_RANGE_ARGUMENT);
+            return false;
+        }
+        return true;
+    }
+
+    private static void addTask(String arg) {
+        if (argIsNotEmpty(COMMAND_ADD, arg)) {
             taskList.add(arg);
         }
     }
 
-    private static void deleteTask(String rest) {
-        if (rest.equals("")) {
-            System.out.println("*Empty argument for the command delete*");
-        } else {
-            try {
-                int num = Integer.parseInt(rest);
-                if (num <= 0) {
-                    System.out.println("*Argument can't be less than or equal to 0*");
-                    return;
-                }
+    private static void deleteTask(String arg) {
+        if (argIsNotEmpty(COMMAND_DELETE, arg)) {
+            int num = makeNum(COMMAND_DELETE, arg);
+            if (isIntArgumentGood(COMMAND_DELETE, num)) {
                 int index = taskList.searchById(num);
-                if (index == -1) {
-                    System.out.println("*There is no element with such a number to delete*");
-                } else {
+                if (isIndexCorrect(COMMAND_DELETE, index)) {
                     taskList.remove(index);
                 }
             }
-            catch (NumberFormatException nfe) {
-                System.out.println("*Invalid arguments for the command delete*");
-            }
         }
     }
 
-    private static void printTasks(String rest) {
-        boolean allPrinted = rest.equals("all");
-        if (allPrinted || rest.equals("")) {
+    private static void printTasks(String arg) {
+        boolean allPrinted = arg.equals("all");
+        if (allPrinted || arg.equals("")) {
             taskList.print(allPrinted);
         } else {
-            System.out.println("*Invalid arguments for the command print*");
+            help(COMMAND_PRINT, INVALID_ARGUMENT);
         }
     }
 
-    private static void toggleTask(String rest) {
-        if (rest.equals("")) {
-            System.out.println("*Invalid arguments for the command toggle*");
-        } else {
-            try {
-                int num = Integer.parseInt(rest);
-                if (num <= 0) {
-                    System.out.println("*Argument can't be less than or equal to 0*");
-                    return;
-                }
+    private static void toggleTask(String arg) {
+        if (argIsNotEmpty(COMMAND_TOGGLE, arg)) {
+            int num = makeNum(COMMAND_TOGGLE, arg);
+            if (isIntArgumentGood(COMMAND_TOGGLE, num)) {
                 int index = taskList.searchById(num);
-                if (index == -1) {
-                    System.out.println("*There is no element with such a number to toggle*");
-                } else {
+                if (isIndexCorrect(COMMAND_TOGGLE, index)) {
                     taskList.get(index).toggle();
                 }
             }
-            catch (NumberFormatException nfe) {
-                System.out.println("*Invalid arguments for the command toggle*");
-            }
         }
     }
 
-    private static void editTask(String restWithNum) {
-        if (restWithNum.equals("")) {
-            System.out.println("*Invalid arguments for the command edit*");
-        } else {
-            try {
-                int num = Integer.parseInt(getKey(restWithNum));
-                if (num <= 0) {
-                    System.out.println("*Argument can't be less than or equal to 0*");
-                    return;
-                }
+    private static void editTask(String argWithNum) {
+        if (argIsNotEmpty(COMMAND_EDIT, argWithNum)) {
+            int num = Integer.parseInt(getKey(argWithNum));
+            if (isIntArgumentGood(COMMAND_EDIT, num)) {
                 int index = taskList.searchById(num);
-                if (index == -1) {
-                    System.out.println("*There is no element with such a number to edit*");
-                } else {
-                    String rest = takeRest(restWithNum);
-                    if (rest.equals("")) {
-                        System.out.println("*New description in command edit is empty*");
-                    } else {
-                        taskList.edit(index, rest);
+                if (isIndexCorrect(COMMAND_EDIT, index)) {
+                    String arg = takeRest(argWithNum);
+                    if (argIsNotEmpty(COMMAND_EDIT, arg)) {
+                        taskList.edit(index, arg);
                     }
                 }
-            }
-            catch (NumberFormatException nfe) {
-                System.out.println("*Invalid arguments for the command edit*");
             }
         }
     }
 
     private static void searchTask(String substring) {
-        if (substring.equals("")) {
-            System.out.println("*Substring for command search shouldn't be empty*");
-        } else {
+        if (argIsNotEmpty(COMMAND_SEARCH, substring)) {
             if(!taskList.searchBySubstring(substring)) {
-                System.out.println("*There is no substring in the tasks you are looking for*");
+                help(COMMAND_SEARCH, EMPTY_SUBSTRING);
             }
         }
     }
