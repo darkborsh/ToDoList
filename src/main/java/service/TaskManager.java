@@ -12,6 +12,7 @@ public class TaskManager {
     final static String COMMAND_TOGGLE = "toggle";
     final static String COMMAND_DELETE = "delete";
     final static String COMMAND_EDIT = "edit";
+    final static String COMMAND_SEARCH = "search";
     final static String COMMAND_QUIT = "quit";
 
     static TaskList taskList;
@@ -31,6 +32,10 @@ public class TaskManager {
         } else {
             try {
                 int num = Integer.parseInt(rest);
+                if (num <= 0) {
+                    System.out.println("*Argument can't be less than or equal to 0*");
+                    return;
+                }
                 int index = taskList.searchById(num);
                 if (index == -1) {
                     System.out.println("*There is no element with such a number to delete*");
@@ -59,6 +64,10 @@ public class TaskManager {
         } else {
             try {
                 int num = Integer.parseInt(rest);
+                if (num <= 0) {
+                    System.out.println("*Argument can't be less than or equal to 0*");
+                    return;
+                }
                 int index = taskList.searchById(num);
                 if (index == -1) {
                     System.out.println("*There is no element with such a number to toggle*");
@@ -78,6 +87,10 @@ public class TaskManager {
         } else {
             try {
                 int num = Integer.parseInt(getKey(restWithNum));
+                if (num <= 0) {
+                    System.out.println("*Argument can't be less than or equal to 0*");
+                    return;
+                }
                 int index = taskList.searchById(num);
                 if (index == -1) {
                     System.out.println("*There is no element with such a number to edit*");
@@ -92,6 +105,16 @@ public class TaskManager {
             }
             catch (NumberFormatException nfe) {
                 System.out.println("*Invalid arguments for the command edit*");
+            }
+        }
+    }
+
+    private static void searchTask(String substring) {
+        if (substring.equals("")) {
+            System.out.println("*Substring for command search shouldn't be empty*");
+        } else {
+            if(!taskList.searchBySubstring(substring)) {
+                System.out.println("*There is no substring in the tasks you are looking for*");
             }
         }
     }
@@ -137,6 +160,9 @@ public class TaskManager {
                 break;
             case (COMMAND_EDIT):
                 editTask(arg);
+                break;
+            case (COMMAND_SEARCH):
+                searchTask(arg);
                 break;
             case (COMMAND_QUIT):
                 isWorking = false;

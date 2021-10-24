@@ -57,4 +57,15 @@ public class TaskList {
             }
         }
     }
+
+    public boolean searchBySubstring(String substring) {
+        boolean hasSubstring = false;
+        for (Task curTask : tasks) {
+            if (curTask.getDescription().contains(substring)) {
+                curTask.print();
+                hasSubstring = true;
+            }
+        }
+        return hasSubstring;
+    }
 }
