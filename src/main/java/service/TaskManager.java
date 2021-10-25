@@ -15,7 +15,7 @@ public class TaskManager {
     final static String COMMAND_SEARCH = "search";
     final static String COMMAND_QUIT = "quit";
 
-    enum ErrNums {
+    enum ErrTypes {
         EMPTY_ARGUMENT,
         INVALID_ARGUMENT,
         LESS_OR_EQ_ZERO_ARGUMENT,
@@ -26,7 +26,7 @@ public class TaskManager {
     static TaskList taskList;
     static boolean isWorking;
 
-    private static void help(String commandName, ErrNums errNum) {
+    private static void help(String commandName, ErrTypes errNum) {
         switch (errNum) {
             case EMPTY_ARGUMENT:
                 System.out.printf("*Empty argument for the command %s*\n", commandName);
@@ -48,7 +48,7 @@ public class TaskManager {
 
     private static boolean argIsNotEmpty(String commandName, String arg) {
         if (arg.equals("")) {
-            help(commandName, ErrNums.EMPTY_ARGUMENT);
+            help(commandName, ErrTypes.EMPTY_ARGUMENT);
             return false;
         }
         return true;
@@ -59,7 +59,7 @@ public class TaskManager {
             return Integer.parseInt(arg);
         }
         catch (NumberFormatException nfe) {
-            help(commandName, ErrNums.INVALID_ARGUMENT);
+            help(commandName, ErrTypes.INVALID_ARGUMENT);
         }
         return Integer.MIN_VALUE;
     }
@@ -69,7 +69,7 @@ public class TaskManager {
             return false;
         }
         if (num <= 0) {
-            help(commandName, ErrNums.LESS_OR_EQ_ZERO_ARGUMENT);
+            help(commandName, ErrTypes.LESS_OR_EQ_ZERO_ARGUMENT);
             return false;
         }
         return true;
@@ -77,7 +77,7 @@ public class TaskManager {
 
     private static boolean isIndexCorrect(String commandName, int index) {
         if (index == -1) {
-            help(commandName, ErrNums.OUT_OF_RANGE_ARGUMENT);
+            help(commandName, ErrTypes.OUT_OF_RANGE_ARGUMENT);
             return false;
         }
         return true;
@@ -106,7 +106,7 @@ public class TaskManager {
         if (allPrinted || arg.equals("")) {
             taskList.print(allPrinted);
         } else {
-            help(COMMAND_PRINT, ErrNums.INVALID_ARGUMENT);
+            help(COMMAND_PRINT, ErrTypes.INVALID_ARGUMENT);
         }
     }
 
@@ -140,7 +140,7 @@ public class TaskManager {
     private static void searchTask(String substring) {
         if (argIsNotEmpty(COMMAND_SEARCH, substring)) {
             if(!taskList.searchBySubstring(substring)) {
-                help(COMMAND_SEARCH, ErrNums.EMPTY_SUBSTRING);
+                help(COMMAND_SEARCH, ErrTypes.EMPTY_SUBSTRING);
             }
         }
     }
