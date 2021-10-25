@@ -14,30 +14,33 @@ public class TaskManager {
     final static String COMMAND_EDIT = "edit";
     final static String COMMAND_SEARCH = "search";
     final static String COMMAND_QUIT = "quit";
-    final static int EMPTY_ARGUMENT = 1;
-    final static int INVALID_ARGUMENT = 2;
-    final static int LESS_OR_EQ_ZERO_ARGUMENT = 3;
-    final static int OUT_OF_RANGE_ARGUMENT = 4;
-    final static int EMPTY_SUBSTRING = 5;
+
+    enum ErrNums {
+        EMPTY_ARGUMENT,
+        INVALID_ARGUMENT,
+        LESS_OR_EQ_ZERO_ARGUMENT,
+        OUT_OF_RANGE_ARGUMENT,
+        EMPTY_SUBSTRING
+    }
 
     static TaskList taskList;
     static boolean isWorking;
 
-    private static void help(String commandName, int errNum) {
+    private static void help(String commandName, ErrNums errNum) {
         switch (errNum) {
-            case (EMPTY_ARGUMENT):
+            case EMPTY_ARGUMENT:
                 System.out.printf("*Empty argument for the command %s*\n", commandName);
                 break;
-            case (INVALID_ARGUMENT):
+            case INVALID_ARGUMENT:
                 System.out.printf("*Invalid argument for the command %s*\n", commandName);
                 break;
-            case (LESS_OR_EQ_ZERO_ARGUMENT):
+            case LESS_OR_EQ_ZERO_ARGUMENT:
                 System.out.printf("*Argument can't be less than or equal to 0 for the command %s*\n", commandName);
                 break;
-            case (OUT_OF_RANGE_ARGUMENT):
+            case OUT_OF_RANGE_ARGUMENT:
                 System.out.printf("*There is no element with such a number to %s*\n", commandName);
                 break;
-            case (EMPTY_SUBSTRING):
+            case EMPTY_SUBSTRING:
                 System.out.printf("*There is no substring in the tasks you are looking for, in %s*\n", commandName);
                 break;
         }
@@ -45,7 +48,7 @@ public class TaskManager {
 
     private static boolean argIsNotEmpty(String commandName, String arg) {
         if (arg.equals("")) {
-            help(commandName, EMPTY_ARGUMENT);
+            help(commandName, ErrNums.EMPTY_ARGUMENT);
             return false;
         }
         return true;
@@ -56,7 +59,7 @@ public class TaskManager {
             return Integer.parseInt(arg);
         }
         catch (NumberFormatException nfe) {
-            help(commandName, INVALID_ARGUMENT);
+            help(commandName, ErrNums.INVALID_ARGUMENT);
         }
         return Integer.MIN_VALUE;
     }
@@ -66,7 +69,7 @@ public class TaskManager {
             return false;
         }
         if (num <= 0) {
-            help(commandName, LESS_OR_EQ_ZERO_ARGUMENT);
+            help(commandName, ErrNums.LESS_OR_EQ_ZERO_ARGUMENT);
             return false;
         }
         return true;
@@ -74,7 +77,7 @@ public class TaskManager {
 
     private static boolean isIndexCorrect(String commandName, int index) {
         if (index == -1) {
-            help(commandName, OUT_OF_RANGE_ARGUMENT);
+            help(commandName, ErrNums.OUT_OF_RANGE_ARGUMENT);
             return false;
         }
         return true;
@@ -103,7 +106,7 @@ public class TaskManager {
         if (allPrinted || arg.equals("")) {
             taskList.print(allPrinted);
         } else {
-            help(COMMAND_PRINT, INVALID_ARGUMENT);
+            help(COMMAND_PRINT, ErrNums.INVALID_ARGUMENT);
         }
     }
 
@@ -137,7 +140,7 @@ public class TaskManager {
     private static void searchTask(String substring) {
         if (argIsNotEmpty(COMMAND_SEARCH, substring)) {
             if(!taskList.searchBySubstring(substring)) {
-                help(COMMAND_SEARCH, EMPTY_SUBSTRING);
+                help(COMMAND_SEARCH, ErrNums.EMPTY_SUBSTRING);
             }
         }
     }
