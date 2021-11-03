@@ -43,13 +43,7 @@ public class TaskList {
     }
 
     public boolean delete(String idKey) {
-        Task task = tasks.get(idKey);
-        if (task != null) {
-            tasks.remove(idKey);
-            return true;
-        } else {
-            return false;
-        }
+        return tasks.remove(idKey) != null;
     }
 
     public boolean edit(String idKey, String newDescription) {

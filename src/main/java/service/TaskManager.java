@@ -18,8 +18,7 @@ public class TaskManager {
 
     enum ErrTypes {
         EMPTY_ARGUMENT,
-        INVALID_ARGUMENT,
-        OUT_OF_RANGE_ARGUMENT
+        INVALID_ARGUMENT
     }
 
     static TaskList taskList;
@@ -32,9 +31,6 @@ public class TaskManager {
                 break;
             case INVALID_ARGUMENT:
                 System.out.printf("*Invalid argument for the command %s*\n", commandName);
-                break;
-            case OUT_OF_RANGE_ARGUMENT:
-                System.out.printf("*There is no element with such a number to %s*\n", commandName);
                 break;
         }
     }
