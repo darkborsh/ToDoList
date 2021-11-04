@@ -1,8 +1,12 @@
 package service;
 
+import model.Task;
+
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+
+import java.util.Map;
 
 public class InputProcessor {
     private static String commandName;
@@ -26,15 +30,15 @@ public class InputProcessor {
         splitInput(userInput);
     }
 
-    public static void process() throws IOException {
+    public static void process(Map<String, Task> data) throws IOException {
         isProcessing = true;
         commandName = "";
         commandArg = "";
-        //CommandProcessor processor = new CommandProcessor();
+        CommandProcessor processor = new CommandProcessor();
 
         while(isProcessing) {
             getInput();
-            //isProcessing = processor.process(commandName, commandArg);
+            isProcessing = processor.process(commandName, commandArg, data);
         }
     }
 }

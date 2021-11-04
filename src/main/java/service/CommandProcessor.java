@@ -2,6 +2,9 @@ package service;
 
 import java.util.Map;
 import java.util.HashMap;
+import model.Task;
+import model.CommandExecutor;
+import model.AddExecutor;
 
 public class CommandProcessor {
     final static String COMMAND_ADD = "add";
@@ -12,25 +15,25 @@ public class CommandProcessor {
     final static String COMMAND_SEARCH = "search";
     final static String COMMAND_QUIT = "quit";
 
-    /*Map<String, СommandExecutor> executors;
+    Map<String, CommandExecutor> executors;
 
     public CommandProcessor() {
         executors = new HashMap<>();
-        executors.put(COMMAND_ADD, AddExecutor);
-        executors.put(COMMAND_PRINT, PrintExecutor);
-        executors.put(COMMAND_TOGGLE, ToggleExecutor);
-        executors.put(COMMAND_DELETE, DeleteExecutor);
-        executors.put(COMMAND_EDIT, EditExecutor);
-        executors.put(COMMAND_SEARCH, SearchExecutor);
-        executors.put(COMMAND_QUIT, QuitExecutor);
+        executors.put(COMMAND_ADD, new AddExecutor());
+        /*executors.put(COMMAND_PRINT, new PrintExecutor());
+        executors.put(COMMAND_TOGGLE, new ToggleExecutor());
+        executors.put(COMMAND_DELETE, new DeleteExecutor());
+        executors.put(COMMAND_EDIT, new EditExecutor());
+        executors.put(COMMAND_SEARCH, new SearchExecutor());
+        executors.put(COMMAND_QUIT, new QuitExecutor());*/
     }
 
-    public boolean process(String commandName, String commandArg) {
-        CommandExecutor executor = executors.getKey(commandName);
+    public boolean process(String commandName, String commandArg, Map<String, Task> data) {
+        CommandExecutor executor = executors.get(commandName);
         if (executor != null) {
-            executor.execute(commandArg);
+            return executor.execute(commandArg, data);
+        } else {
             return true;
         }
-        return false;
-    }*/
+    }
 }
