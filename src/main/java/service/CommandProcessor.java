@@ -5,6 +5,7 @@ import java.util.HashMap;
 import model.Task;
 import model.CommandExecutor;
 import model.AddExecutor;
+import model.PrintExecutor;
 
 public class CommandProcessor {
     final static String COMMAND_ADD = "add";
@@ -20,8 +21,8 @@ public class CommandProcessor {
     public CommandProcessor() {
         executors = new HashMap<>();
         executors.put(COMMAND_ADD, new AddExecutor());
-        /*executors.put(COMMAND_PRINT, new PrintExecutor());
-        executors.put(COMMAND_TOGGLE, new ToggleExecutor());
+        executors.put(COMMAND_PRINT, new PrintExecutor());
+        /*executors.put(COMMAND_TOGGLE, new ToggleExecutor());
         executors.put(COMMAND_DELETE, new DeleteExecutor());
         executors.put(COMMAND_EDIT, new EditExecutor());
         executors.put(COMMAND_SEARCH, new SearchExecutor());
