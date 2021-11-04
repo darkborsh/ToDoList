@@ -1,37 +1,23 @@
 package model;
 
+import lombok.Data;
+
+import java.util.Map;
+
+@Data
 public class Task {
-    private int id;
     private boolean isCompleted;
     private String description;
 
-    public Task(int taskId, String desc) {
-        id = taskId;
+    public Task(String desc) {
         isCompleted = false;
         description = desc;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String newDesc) {
-        description = newDesc;
-    }
-
-    public boolean isCompleted() {
-        return isCompleted;
-    }
-
-    public void print() {
-        System.out.printf("%d. [%s] %s\n", id, isCompleted ? "x" : " ", description);
-    }
-
-    public void toggle() {
-        isCompleted = !isCompleted;
+    public static void print(Map.Entry<String, Task> stringTaskEntry) {
+        System.out.printf("%s. [%s] %s\n",
+                stringTaskEntry.getKey(),
+                stringTaskEntry.getValue().isCompleted() ? "x" : " ",
+                stringTaskEntry.getValue().getDescription());
     }
 }

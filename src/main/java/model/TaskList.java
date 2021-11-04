@@ -1,72 +1,58 @@
 package model;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.LinkedHashMap;
+import java.util.stream.Stream;
 
 public class TaskList {
-    private List<Task> tasks;
+    private long counter;
+    private Map<String, Task> tasks;
 
     public TaskList() {
-        tasks = new ArrayList<>();
-    }
-
-    public int size() {
-        return tasks.size();
-    }
-
-    public Task get(int index) {
-        return tasks.get(index);
+        counter = 0;
+        tasks = new LinkedHashMap<>();
     }
 
     public void add(String desc) {
-        if (tasks.isEmpty()) {
-            tasks.add(new Task(1, desc));
-        } else {
-            tasks.add(new Task(tasks.get(tasks.size() - 1).getId() + 1, desc));
-        }
-    }
-
-    public int searchById(int specifiedId) {
-        int low = 0;
-        int high = tasks.size() - 1;
-
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            if (tasks.get(mid).getId() < specifiedId) {
-                low = mid + 1;
-            } else if (tasks.get(mid).getId() > specifiedId) {
-                high = mid - 1;
-            } else if (tasks.get(mid).getId() == specifiedId) {
-                return mid;
-            }
-        }
-        return -1;
-    }
-
-    public void remove(int index) {
-        tasks.remove(index);
-    }
-
-    public void edit(int index, String newDesc) {
-        tasks.get(index).setDescription(newDesc);
+        counter++;
+        tasks.put(String.valueOf(counter), new Task(desc));
     }
 
     public void print(boolean allPrinted) {
-        for (Task curTask : tasks) {
-            if (allPrinted || !curTask.isCompleted()) {
-                curTask.print();
-            }
+        Stream<Map.Entry<String, Task>> stream = tasks.entrySet().stream();
+        if (!allPrinted) {
+            stream = stream.filter(s -> !s.getValue().isCompleted());
+        }
+        stream.forEach(Task::print);
+    }
+
+    public void search(String substring) {
+        tasks.entrySet().stream()
+                .filter(t -> t.getValue().getDescription().contains(substring))
+                .forEach(Task::print);
+    }
+
+    public boolean toggle(String idKey) {
+        Task task = tasks.get(idKey);
+        if (task != null) {
+            task.setCompleted(!task.isCompleted());
+            return true;
+        } else {
+            return false;
         }
     }
 
-    public boolean searchBySubstring(String substring) {
-        boolean hasSubstring = false;
-        for (Task curTask : tasks) {
-            if (curTask.getDescription().contains(substring)) {
-                curTask.print();
-                hasSubstring = true;
-            }
+    public boolean delete(String idKey) {
+        return tasks.remove(idKey) != null;
+    }
+
+    public boolean edit(String idKey, String newDescription) {
+        Task task = tasks.get(idKey);
+        if (task != null) {
+            tasks.get(idKey).setDescription(newDescription);
+            return true;
+        } else {
+            return false;
         }
-        return hasSubstring;
     }
 }

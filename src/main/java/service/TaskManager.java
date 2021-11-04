@@ -2,9 +2,10 @@ package service;
 
 import model.TaskList;
 
-import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.function.Predicate;
 
 public class TaskManager {
     final static String COMMAND_ADD = "add";
@@ -17,31 +18,19 @@ public class TaskManager {
 
     enum ErrTypes {
         EMPTY_ARGUMENT,
-        INVALID_ARGUMENT,
-        LESS_OR_EQ_ZERO_ARGUMENT,
-        OUT_OF_RANGE_ARGUMENT,
-        EMPTY_SUBSTRING
+        INVALID_ARGUMENT
     }
 
     static TaskList taskList;
     static boolean isWorking;
 
-    private static void help(String commandName, ErrTypes errNum) {
-        switch (errNum) {
+    private static void help(String commandName, ErrTypes errType) {
+        switch (errType) {
             case EMPTY_ARGUMENT:
                 System.out.printf("*Empty argument for the command %s*\n", commandName);
                 break;
             case INVALID_ARGUMENT:
                 System.out.printf("*Invalid argument for the command %s*\n", commandName);
-                break;
-            case LESS_OR_EQ_ZERO_ARGUMENT:
-                System.out.printf("*Argument can't be less than or equal to 0 for the command %s*\n", commandName);
-                break;
-            case OUT_OF_RANGE_ARGUMENT:
-                System.out.printf("*There is no element with such a number to %s*\n", commandName);
-                break;
-            case EMPTY_SUBSTRING:
-                System.out.printf("*There is no substring in the tasks you are looking for, in %s*\n", commandName);
                 break;
         }
     }
@@ -54,50 +43,9 @@ public class TaskManager {
         return true;
     }
 
-    private static Integer makeNum(String commandName, String arg) {
-        try {
-            return Integer.parseInt(arg);
-        }
-        catch (NumberFormatException nfe) {
-            help(commandName, ErrTypes.INVALID_ARGUMENT);
-        }
-        return Integer.MIN_VALUE;
-    }
-
-    private static boolean isIntArgumentGood(String commandName, int num) {
-        if (num == Integer.MIN_VALUE) {
-            return false;
-        }
-        if (num <= 0) {
-            help(commandName, ErrTypes.LESS_OR_EQ_ZERO_ARGUMENT);
-            return false;
-        }
-        return true;
-    }
-
-    private static boolean isIndexCorrect(String commandName, int index) {
-        if (index == -1) {
-            help(commandName, ErrTypes.OUT_OF_RANGE_ARGUMENT);
-            return false;
-        }
-        return true;
-    }
-
     private static void addTask(String arg) {
         if (argIsNotEmpty(COMMAND_ADD, arg)) {
             taskList.add(arg);
-        }
-    }
-
-    private static void deleteTask(String arg) {
-        if (argIsNotEmpty(COMMAND_DELETE, arg)) {
-            int num = makeNum(COMMAND_DELETE, arg);
-            if (isIntArgumentGood(COMMAND_DELETE, num)) {
-                int index = taskList.searchById(num);
-                if (isIndexCorrect(COMMAND_DELETE, index)) {
-                    taskList.remove(index);
-                }
-            }
         }
     }
 
@@ -110,37 +58,35 @@ public class TaskManager {
         }
     }
 
-    private static void toggleTask(String arg) {
-        if (argIsNotEmpty(COMMAND_TOGGLE, arg)) {
-            int num = makeNum(COMMAND_TOGGLE, arg);
-            if (isIntArgumentGood(COMMAND_TOGGLE, num)) {
-                int index = taskList.searchById(num);
-                if (isIndexCorrect(COMMAND_TOGGLE, index)) {
-                    taskList.get(index).toggle();
-                }
+    private static void searchTask(String arg) {
+        if (argIsNotEmpty(COMMAND_SEARCH, arg)) {
+            taskList.search(arg);
+        }
+    }
+
+    private static void simpleAction(String commandName, String arg, Predicate<String> action) {
+        if (argIsNotEmpty(commandName, arg)) {
+            if (!action.test(arg)) {
+                help(commandName, ErrTypes.INVALID_ARGUMENT);
             }
         }
+    }
+
+    private static void toggleTask(String arg) {
+        simpleAction(COMMAND_TOGGLE, arg, a -> taskList.toggle(arg));
+    }
+
+    private static void deleteTask(String arg) {
+        simpleAction(COMMAND_DELETE, arg, a -> taskList.delete(arg));
     }
 
     private static void editTask(String argWithNum) {
         if (argIsNotEmpty(COMMAND_EDIT, argWithNum)) {
-            int num = Integer.parseInt(getKey(argWithNum));
-            if (isIntArgumentGood(COMMAND_EDIT, num)) {
-                int index = taskList.searchById(num);
-                if (isIndexCorrect(COMMAND_EDIT, index)) {
-                    String arg = takeRest(argWithNum);
-                    if (argIsNotEmpty(COMMAND_EDIT, arg)) {
-                        taskList.edit(index, arg);
-                    }
+            String arg = takeRest(argWithNum);
+            if (argIsNotEmpty(COMMAND_EDIT, arg)) {
+                if (!taskList.edit(getKey(argWithNum), arg)) {
+                    help(COMMAND_EDIT, ErrTypes.INVALID_ARGUMENT);
                 }
-            }
-        }
-    }
-
-    private static void searchTask(String substring) {
-        if (argIsNotEmpty(COMMAND_SEARCH, substring)) {
-            if(!taskList.searchBySubstring(substring)) {
-                help(COMMAND_SEARCH, ErrTypes.EMPTY_SUBSTRING);
             }
         }
     }
