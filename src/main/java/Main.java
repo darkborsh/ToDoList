@@ -1,9 +1,8 @@
-import service.TaskManager;
-
+import service.InputProcessor;
 import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        TaskManager.work();
+        InputProcessor.process();
     }
 }

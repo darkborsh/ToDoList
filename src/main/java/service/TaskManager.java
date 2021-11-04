@@ -80,7 +80,7 @@ public class TaskManager {
         simpleAction(COMMAND_DELETE, arg, a -> taskList.delete(arg));
     }
 
-    private static void editTask(String argWithNum) {
+    /*private static void editTask(String argWithNum) {
         if (argIsNotEmpty(COMMAND_EDIT, argWithNum)) {
             String arg = takeRest(argWithNum);
             if (argIsNotEmpty(COMMAND_EDIT, arg)) {
@@ -89,68 +89,5 @@ public class TaskManager {
                 }
             }
         }
-    }
-
-    private static String getKey(String userInput) {
-        int index = userInput.indexOf(' ');
-        if (index > -1) {
-            return userInput.substring(0, index);
-        } else {
-            return userInput;
-        }
-    }
-
-    private static String takeRest(String userInput) {
-        int index = userInput.indexOf(' ');
-        if (index > -1) {
-            return userInput.substring(index + 1);
-        } else {
-            return "";
-        }
-    }
-
-    private static void getCommand() throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-        String userInput = reader.readLine();
-
-        String command = getKey(userInput);
-        String arg = takeRest(userInput).trim();
-
-        switch (command) {
-            case (COMMAND_ADD):
-                addTask(arg);
-                break;
-            case (COMMAND_PRINT):
-                printTasks(arg);
-                break;
-            case (COMMAND_TOGGLE):
-                toggleTask(arg);
-                break;
-            case (COMMAND_DELETE):
-                deleteTask(arg);
-                break;
-            case (COMMAND_EDIT):
-                editTask(arg);
-                break;
-            case (COMMAND_SEARCH):
-                searchTask(arg);
-                break;
-            case (COMMAND_QUIT):
-                isWorking = false;
-                break;
-            default:
-                System.out.println("*Invalid command*");
-                break;
-        }
-    }
-
-    public static void work() throws IOException {
-        isWorking = true;
-        taskList = new TaskList();
-
-        while (isWorking) {
-            getCommand();
-        }
-    }
+    }*/
 }
