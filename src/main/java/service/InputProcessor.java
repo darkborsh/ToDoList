@@ -30,10 +30,11 @@ public class InputProcessor {
         isProcessing = true;
         commandName = "";
         commandArg = "";
+        //CommandProcessor processor = new CommandProcessor();
 
         while(isProcessing) {
             getInput();
-            //isProcessing = CommandProcessor.process(commandName, commandArg);
+            //isProcessing = processor.process(commandName, commandArg);
         }
     }
 }
