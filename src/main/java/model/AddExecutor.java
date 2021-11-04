@@ -7,8 +7,12 @@ public class AddExecutor implements CommandExecutor {
 
     @Override
     public boolean execute(String commandArg, Map<String, Task> data) {
-        dataCounter++;
-        data.put(String.valueOf(dataCounter), new Task(commandArg));
+        if (commandArg.equals("")) {
+            Helper.help("add", ErrTypes.EMPTY_ARGUMENT);
+        } else {
+            dataCounter++;
+            data.put(String.valueOf(dataCounter), new Task(commandArg));
+        }
         return true;
     }
 }

@@ -17,9 +17,10 @@ public class InputProcessor {
         int index = userInput.indexOf(' ');
         if (index > -1) {
             commandName = userInput.substring(0, index);
-            commandArg = userInput.substring(index + 1);
+            commandArg = userInput.substring(index + 1).trim();
         } else {
             commandName = userInput;
+            commandArg = "";
         }
     }
 

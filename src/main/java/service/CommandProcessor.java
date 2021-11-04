@@ -33,6 +33,7 @@ public class CommandProcessor {
         if (executor != null) {
             return executor.execute(commandArg, data);
         } else {
+            System.out.println("Неверная команда");
             return true;
         }
     }
