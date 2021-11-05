@@ -1,5 +1,6 @@
-package commands;
+package service;
 
+import commands.*;
 import model.Task;
 
 import java.util.Map;

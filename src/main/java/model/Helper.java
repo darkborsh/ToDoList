@@ -1,4 +1,4 @@
-package commands;
+package model;
 
 public class Helper {
     public static void help(String commandName, ErrTypes errType) {

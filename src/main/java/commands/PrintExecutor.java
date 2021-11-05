@@ -1,5 +1,7 @@
 package commands;
 
+import model.ErrTypes;
+import model.Helper;
 import model.Task;
 import model.TaskPrinter;
 
