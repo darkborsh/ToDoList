@@ -1,9 +1,10 @@
 package commands;
 
-import java.util.Map;
-import java.util.stream.Stream;
 import model.Task;
 import model.TaskPrinter;
+
+import java.util.Map;
+import java.util.stream.Stream;
 
 public class PrintExecutor implements CommandExecutor {
     @Override

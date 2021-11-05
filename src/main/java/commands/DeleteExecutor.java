@@ -1,7 +1,8 @@
 package commands;
 
-import java.util.Map;
 import model.Task;
+
+import java.util.Map;
 
 public class DeleteExecutor implements CommandExecutor {
     @Override
