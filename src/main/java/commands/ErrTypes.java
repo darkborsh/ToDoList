@@ -1,4 +1,4 @@
-package model;
+package commands;
 
 public enum ErrTypes {
     EMPTY_ARGUMENT,

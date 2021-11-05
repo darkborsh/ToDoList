@@ -1,7 +1,8 @@
-package model;
+package commands;
 
 import java.util.Map;
 import java.util.stream.Stream;
+import model.Task;
 
 public class PrintExecutor implements CommandExecutor {
     @Override
@@ -14,7 +15,7 @@ public class PrintExecutor implements CommandExecutor {
             }
             stream.forEach(Task::print);
         } else {
-            Helper.help("print", ErrTypes.INVALID_ARGUMENT);
+            Helper.help(CommandNames.COMMAND_PRINT, ErrTypes.INVALID_ARGUMENT);
         }
         return true;
     }
