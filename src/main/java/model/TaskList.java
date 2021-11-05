@@ -23,13 +23,13 @@ public class TaskList {
         if (!allPrinted) {
             stream = stream.filter(s -> !s.getValue().isCompleted());
         }
-        stream.forEach(Task::print);
+        //stream.forEach(Task::print);
     }
 
     public void search(String substring) {
         tasks.entrySet().stream()
-                .filter(t -> t.getValue().getDescription().contains(substring))
-                .forEach(Task::print);
+                .filter(t -> t.getValue().getDescription().contains(substring));
+                //.forEach(Task::print);
     }
 
     public boolean toggle(String idKey) {

@@ -3,6 +3,7 @@ package commands;
 import java.util.Map;
 import java.util.stream.Stream;
 import model.Task;
+import model.TaskPrinter;
 
 public class PrintExecutor implements CommandExecutor {
     @Override
@@ -13,7 +14,7 @@ public class PrintExecutor implements CommandExecutor {
             if (!allPrinted) {
                 stream = stream.filter(s -> !s.getValue().isCompleted());
             }
-            stream.forEach(Task::print);
+            stream.forEach(TaskPrinter::print);
         } else {
             Helper.help(CommandNames.COMMAND_PRINT, ErrTypes.INVALID_ARGUMENT);
         }
