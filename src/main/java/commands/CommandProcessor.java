@@ -15,7 +15,7 @@ public class CommandProcessor {
         executors.put(CommandNames.COMMAND_TOGGLE, new ToggleExecutor());
         executors.put(CommandNames.COMMAND_DELETE, new DeleteExecutor());
         executors.put(CommandNames.COMMAND_SEARCH, new SearchExecutor());
-        //executors.put(CommandNames.COMMAND_EDIT, new EditExecutor());
+        executors.put(CommandNames.COMMAND_EDIT, new EditExecutor());
         executors.put(CommandNames.COMMAND_QUIT, new QuitExecutor());
     }
 
