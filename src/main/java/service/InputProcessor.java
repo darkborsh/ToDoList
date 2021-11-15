@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import model.Task;
 
 import java.util.Map;
+import java.util.function.Function;
 
 public class InputProcessor {
     private static String commandName;
