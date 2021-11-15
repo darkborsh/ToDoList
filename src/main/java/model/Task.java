@@ -2,8 +2,6 @@ package model;
 
 import lombok.Data;
 
-import java.util.Map;
-
 @Data
 public class Task {
     private boolean isCompleted;
@@ -12,12 +10,5 @@ public class Task {
     public Task(String desc) {
         isCompleted = false;
         description = desc;
-    }
-
-    public static void print(Map.Entry<String, Task> stringTaskEntry) {
-        System.out.printf("%s. [%s] %s\n",
-                stringTaskEntry.getKey(),
-                stringTaskEntry.getValue().isCompleted() ? "x" : " ",
-                stringTaskEntry.getValue().getDescription());
     }
 }
