@@ -1,9 +1,9 @@
 package commands;
 
-import model.ErrTypes;
-import model.Helper;
+import ErrTypes;
+import Helper;
 import model.Task;
-import model.TaskPrinter;
+import TaskPrinter;
 
 import java.util.Map;
 
