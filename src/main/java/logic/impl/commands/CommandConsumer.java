@@ -36,7 +36,7 @@ public class CommandConsumer implements Consumer<CommandFormat> {
                 consumer.getValue().accept(commandFormat, taskDao);
             }
         } else {
-            errorHandler.handle("Unknown command");
+            errorHandler.handle("Неизвестная команда");
         }
     }
 }
