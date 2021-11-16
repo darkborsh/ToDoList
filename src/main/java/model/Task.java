@@ -8,9 +8,8 @@ public class Task {
     private long id;
     private String description;
 
-    public Task(long id, String description) {
+    public Task(String description) {
         isCompleted = false;
-        this.id = id;
         this.description = description;
     }
 }
