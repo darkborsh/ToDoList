@@ -1,6 +1,6 @@
 package logic.impl.commands.validators;
 
-import logic.ErrorHandler;
+import presenters.ErrorHandler;
 
 public abstract class BaseValidator {
     protected final ErrorHandler errorHandler;

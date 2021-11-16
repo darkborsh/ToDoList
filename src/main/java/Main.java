@@ -1,11 +1,11 @@
-import logic.ErrorHandler;
+import presenters.ErrorHandler;
 import logic.TaskDao;
-import logic.impl.ErrorHandlerImpl;
+import presenters.impl.ErrorHandlerImpl;
 import logic.impl.TaskDaoImpl;
 import logic.impl.commands.CommandConsumer;
 import logic.impl.commands.StaticCommandFactory;
-import parser.CommandFormat;
-import parser.InputProcessor;
+import model.CommandFormat;
+import presenters.impl.parser.InputProcessor;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

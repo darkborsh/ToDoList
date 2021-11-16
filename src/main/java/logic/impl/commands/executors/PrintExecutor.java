@@ -1,8 +1,8 @@
 package logic.impl.commands.executors;
 
 import logic.TaskDao;
-import logic.TaskPrinter;
-import parser.CommandFormat;
+import presenters.TaskPrinter;
+import model.CommandFormat;
 
 import java.util.function.BiConsumer;
 

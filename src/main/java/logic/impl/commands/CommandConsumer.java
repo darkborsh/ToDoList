@@ -1,9 +1,9 @@
 package logic.impl.commands;
 
 import javafx.util.Pair;
-import logic.ErrorHandler;
+import presenters.ErrorHandler;
 import logic.TaskDao;
-import parser.CommandFormat;
+import model.CommandFormat;
 
 import java.util.Map;
 import java.util.function.BiConsumer;

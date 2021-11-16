@@ -2,7 +2,7 @@ package logic.impl.commands.executors;
 
 import logic.TaskDao;
 import model.Task;
-import parser.CommandFormat;
+import model.CommandFormat;
 
 import java.util.function.BiConsumer;
 

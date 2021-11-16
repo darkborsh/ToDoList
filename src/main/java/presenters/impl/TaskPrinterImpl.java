@@ -1,6 +1,6 @@
-package logic.impl;
+package presenters.impl;
 
-import logic.TaskPrinter;
+import presenters.TaskPrinter;
 import model.Task;
 
 import java.util.stream.Stream;

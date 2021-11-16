@@ -1,7 +1,7 @@
 package logic.impl.commands.validators;
 
-import logic.ErrorHandler;
-import parser.CommandFormat;
+import presenters.ErrorHandler;
+import model.CommandFormat;
 
 import java.util.function.Predicate;
 

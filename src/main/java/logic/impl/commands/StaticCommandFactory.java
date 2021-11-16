@@ -1,13 +1,13 @@
 package logic.impl.commands;
 
 import javafx.util.Pair;
-import logic.ErrorHandler;
+import presenters.ErrorHandler;
 import logic.TaskDao;
-import logic.TaskPrinter;
-import logic.impl.TaskPrinterImpl;
+import presenters.TaskPrinter;
+import presenters.impl.TaskPrinterImpl;
 import logic.impl.commands.executors.*;
 import logic.impl.commands.validators.*;
-import parser.CommandFormat;
+import model.CommandFormat;
 
 import java.util.Collections;
 import java.util.HashMap;

@@ -1,6 +1,6 @@
-package logic.impl;
+package presenters.impl;
 
-import logic.ErrorHandler;
+import presenters.ErrorHandler;
 
 public class ErrorHandlerImpl implements ErrorHandler {
     @Override
