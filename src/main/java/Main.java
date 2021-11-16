@@ -14,13 +14,13 @@ import java.util.function.Consumer;
 public class Main {
     public static void main(String[] args) {
         final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        final InputProcessor parser = new InputProcessor();
+        final InputProcessor inputProcessor = new InputProcessor();
         final ErrorHandler errorHandler = new ErrorHandlerImpl();
         final TaskDao taskDao = new TaskDaoImpl();
         final StaticCommandFactory commandFactory = new StaticCommandFactory(errorHandler);
         final Consumer<CommandFormat> consumer = new CommandConsumer(commandFactory, errorHandler, taskDao);
         reader.lines()
-                .map(parser)
+                .map(inputProcessor)
                 .forEach(consumer);
     }
 }
