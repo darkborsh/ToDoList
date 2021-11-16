@@ -3,7 +3,6 @@ package logic.impl.commands.validators;
 import logic.ErrorHandler;
 import parser.CommandFormat;
 
-import java.util.Objects;
 import java.util.function.Predicate;
 
 public class PrintValidator extends BaseValidator implements Predicate<CommandFormat>  {
