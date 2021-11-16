@@ -5,8 +5,8 @@ import java.util.function.Predicate;
 import logic.ErrorHandler;
 import parser.CommandFormat;
 
-public class AddValidator extends BaseValidator implements Predicate<CommandFormat> {
-    public AddValidator(ErrorHandler errorHandler) {
+public class TextValidator extends BaseValidator implements Predicate<CommandFormat> {
+    public TextValidator(ErrorHandler errorHandler) {
         super(errorHandler);
     }
 
@@ -14,7 +14,7 @@ public class AddValidator extends BaseValidator implements Predicate<CommandForm
     public boolean test(CommandFormat commandFormat) {
         String args = commandFormat.getArgs();
         if (args == null || args.isEmpty()) {
-            errorHandler.handle("Задача должна содержать описание");
+            errorHandler.handle("Описание задачи не может быть пустым");
             return false;
         }
         return true;

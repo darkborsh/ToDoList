@@ -1,16 +1,12 @@
 package logic.impl.commands;
 
-import javafx.scene.control.Toggle;
 import javafx.util.Pair;
 import logic.ErrorHandler;
 import logic.TaskDao;
 import logic.TaskPrinter;
 import logic.impl.TaskPrinterImpl;
-import logic.impl.commands.executors.AddExecutor;
-import logic.impl.commands.executors.DeleteExecutor;
-import logic.impl.commands.executors.PrintExecutor;
-import logic.impl.commands.executors.ToggleExecutor;
-import logic.impl.commands.validators.AddValidator;
+import logic.impl.commands.executors.*;
+import logic.impl.commands.validators.TextValidator;
 import logic.impl.commands.validators.IdValidator;
 import logic.impl.commands.validators.PrintValidator;
 import parser.CommandFormat;
@@ -30,9 +26,12 @@ public class StaticCommandFactory implements Supplier<Map<String,
         final Map<String, Pair<Predicate<CommandFormat>, BiConsumer<CommandFormat, TaskDao>>> map = new HashMap<>();
         final TaskPrinter taskPrinter = new TaskPrinterImpl();
 
-        Predicate<CommandFormat> validator = new AddValidator(errorHandler);
+        Predicate<CommandFormat> validator = new TextValidator(errorHandler);
         BiConsumer<CommandFormat, TaskDao> executor = new AddExecutor();
         map.put(CommandNames.COMMAND_ADD, new Pair<>(validator, executor));
+
+        executor = new SearchExecutor(taskPrinter);
+        map.put(CommandNames.COMMAND_SEARCH, new Pair<>(validator, executor));
 
         validator = new PrintValidator(errorHandler);
         executor = new PrintExecutor(taskPrinter);
