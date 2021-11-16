@@ -1,0 +1,22 @@
+package logic.impl.commands.validators;
+
+import java.util.function.Predicate;
+
+import logic.ErrorHandler;
+import parser.CommandFormat;
+
+public class AddValidator extends BaseValidator implements Predicate<CommandFormat> {
+    protected AddValidator(ErrorHandler errorHandler) {
+        super(errorHandler);
+    }
+
+    @Override
+    public boolean test(CommandFormat commandFormat) {
+        String args = commandFormat.getArgs();
+        if (args.isEmpty() || args == null) {
+            errorHandler.handle("Задача должна содержать описание");
+            return false;
+        }
+        return true;
+    }
+}

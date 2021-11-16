@@ -1,4 +1,4 @@
-package logic.impl.validators;
+package logic.impl.commands.validators;
 
 import logic.ErrorHandler;
 
