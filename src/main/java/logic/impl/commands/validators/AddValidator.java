@@ -13,7 +13,7 @@ public class AddValidator extends BaseValidator implements Predicate<CommandForm
     @Override
     public boolean test(CommandFormat commandFormat) {
         String args = commandFormat.getArgs();
-        if (args.isEmpty() || args == null) {
+        if (args == null || args.isEmpty()) {
             errorHandler.handle("Задача должна содержать описание");
             return false;
         }
