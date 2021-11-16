@@ -1,5 +1,6 @@
 package logic.impl.commands;
 
+import javafx.scene.control.Toggle;
 import javafx.util.Pair;
 import logic.ErrorHandler;
 import logic.TaskDao;
@@ -7,7 +8,9 @@ import logic.TaskPrinter;
 import logic.impl.TaskPrinterImpl;
 import logic.impl.commands.executors.AddExecutor;
 import logic.impl.commands.executors.PrintExecutor;
+import logic.impl.commands.executors.ToggleExecutor;
 import logic.impl.commands.validators.AddValidator;
+import logic.impl.commands.validators.IdValidator;
 import logic.impl.commands.validators.PrintValidator;
 import parser.CommandFormat;
 
@@ -33,6 +36,10 @@ public class StaticCommandFactory implements Supplier<Map<String,
         validator = new PrintValidator(errorHandler);
         executor = new PrintExecutor(taskPrinter);
         map.put(CommandNames.COMMAND_PRINT, new Pair<>(validator, executor));
+
+        validator = new IdValidator(errorHandler);
+        executor = new ToggleExecutor();
+        map.put(CommandNames.COMMAND_TOGGLE, new Pair<>(validator, executor));
 
         this.commands = Collections.unmodifiableMap(map);
     }
