@@ -32,6 +32,7 @@ public class TaskDaoImpl implements TaskDao {
                 high = mid - 1;
             } else if (storage.get(mid).getId() == id) {
                 storage.remove(mid);
+                return;
             }
         }
     }

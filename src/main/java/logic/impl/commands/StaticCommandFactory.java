@@ -7,6 +7,7 @@ import logic.TaskDao;
 import logic.TaskPrinter;
 import logic.impl.TaskPrinterImpl;
 import logic.impl.commands.executors.AddExecutor;
+import logic.impl.commands.executors.DeleteExecutor;
 import logic.impl.commands.executors.PrintExecutor;
 import logic.impl.commands.executors.ToggleExecutor;
 import logic.impl.commands.validators.AddValidator;
@@ -40,6 +41,9 @@ public class StaticCommandFactory implements Supplier<Map<String,
         validator = new IdValidator(errorHandler);
         executor = new ToggleExecutor();
         map.put(CommandNames.COMMAND_TOGGLE, new Pair<>(validator, executor));
+
+        executor = new DeleteExecutor();
+        map.put(CommandNames.COMMAND_DELETE, new Pair<>(validator, executor));
 
         this.commands = Collections.unmodifiableMap(map);
     }
