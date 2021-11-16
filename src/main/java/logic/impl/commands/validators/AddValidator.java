@@ -6,7 +6,7 @@ import logic.ErrorHandler;
 import parser.CommandFormat;
 
 public class AddValidator extends BaseValidator implements Predicate<CommandFormat> {
-    protected AddValidator(ErrorHandler errorHandler) {
+    public AddValidator(ErrorHandler errorHandler) {
         super(errorHandler);
     }
 
