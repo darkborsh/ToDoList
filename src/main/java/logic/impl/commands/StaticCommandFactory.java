@@ -6,7 +6,9 @@ import logic.TaskDao;
 import logic.TaskPrinter;
 import logic.impl.TaskPrinterImpl;
 import logic.impl.commands.executors.AddExecutor;
+import logic.impl.commands.executors.PrintExecutor;
 import logic.impl.commands.validators.AddValidator;
+import logic.impl.commands.validators.PrintValidator;
 import parser.CommandFormat;
 
 import java.util.Collections;
@@ -27,6 +29,10 @@ public class StaticCommandFactory implements Supplier<Map<String,
         Predicate<CommandFormat> validator = new AddValidator(errorHandler);
         BiConsumer<CommandFormat, TaskDao> executor = new AddExecutor();
         map.put(CommandNames.COMMAND_ADD, new Pair<>(validator, executor));
+
+        validator = new PrintValidator(errorHandler);
+        executor = new PrintExecutor(taskPrinter);
+        map.put(CommandNames.COMMAND_PRINT, new Pair<>(validator, executor));
 
         this.commands = Collections.unmodifiableMap(map);
     }

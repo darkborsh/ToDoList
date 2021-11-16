@@ -3,6 +3,7 @@ package logic.impl.commands.validators;
 import logic.ErrorHandler;
 import parser.CommandFormat;
 
+import java.util.Objects;
 import java.util.function.Predicate;
 
 public class PrintValidator extends BaseValidator implements Predicate<CommandFormat>  {
@@ -13,7 +14,7 @@ public class PrintValidator extends BaseValidator implements Predicate<CommandFo
     @Override
     public boolean test(CommandFormat commandFormat) {
         String args = commandFormat.getArgs();
-        if (args == null || !(args.equals("all") || args.equals(""))) {
+        if (args != null && !args.equals("all") && !args.equals("")) {
             errorHandler.handle("Неверный формат команды print");
             return false;
         }
