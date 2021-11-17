@@ -13,11 +13,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 
-public class StaticCommandFactory implements Supplier<Map<String,
-        Pair<Predicate<CommandFormat>, BiConsumer<CommandFormat, TaskDao>>>> {
+public class StaticCommandFactory implements Function<String, Pair<Predicate<CommandFormat>, BiConsumer<CommandFormat, TaskDao>>> {
     private final Map<String, Pair<Predicate<CommandFormat>, BiConsumer<CommandFormat, TaskDao>>> commands;
 
     public StaticCommandFactory(final ErrorHandler errorHandler) {
@@ -54,7 +53,7 @@ public class StaticCommandFactory implements Supplier<Map<String,
     }
 
     @Override
-    public Map<String, Pair<Predicate<CommandFormat>, BiConsumer<CommandFormat, TaskDao>>> get() {
-        return commands;
+    public Pair<Predicate<CommandFormat>, BiConsumer<CommandFormat, TaskDao>> apply(String commandName) {
+        return commands.get(commandName);
     }
 }
