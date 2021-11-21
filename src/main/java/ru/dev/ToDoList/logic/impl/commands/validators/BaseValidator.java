@@ -1,6 +1,6 @@
-package logic.impl.commands.validators;
+package ru.dev.ToDoList.logic.impl.commands.validators;
 
-import presenters.ErrorHandler;
+import ru.dev.ToDoList.presenters.ErrorHandler;
 
 public abstract class BaseValidator {
     protected final ErrorHandler errorHandler;

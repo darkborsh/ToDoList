@@ -1,11 +1,15 @@
-package logic.impl.commands.validators;
+package ru.dev.ToDoList.logic.impl.commands.validators;
 
-import presenters.ErrorHandler;
-import model.CommandFormat;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import ru.dev.ToDoList.presenters.ErrorHandler;
+import ru.dev.ToDoList.model.CommandFormat;
 
 import java.util.function.Predicate;
 
+@Component
 public class IdValidator extends BaseValidator implements Predicate<CommandFormat> {
+    @Autowired
     public IdValidator(ErrorHandler errorHandler) {
         super(errorHandler);
     }

@@ -1,17 +1,21 @@
-package logic.impl.commands;
+package ru.dev.ToDoList.logic.impl.commands;
 
 import javafx.util.Pair;
-import presenters.ErrorHandler;
-import logic.TaskDao;
-import model.CommandFormat;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import ru.dev.ToDoList.logic.TaskDao;
+import ru.dev.ToDoList.presenters.ErrorHandler;
+import ru.dev.ToDoList.model.CommandFormat;
 
 import java.util.function.*;
 
+@Component
 public class CommandConsumer implements Consumer<CommandFormat> {
     private final Function<String, Pair<Predicate<CommandFormat>, BiConsumer<CommandFormat, TaskDao>>> commandFactory;
     private final ErrorHandler errorHandler;
     private final TaskDao taskDao;
 
+    @Autowired
     public CommandConsumer(Function<String,
             Pair<Predicate<CommandFormat>, BiConsumer<CommandFormat, TaskDao>>> commandFactory,
                            ErrorHandler errorHandler,

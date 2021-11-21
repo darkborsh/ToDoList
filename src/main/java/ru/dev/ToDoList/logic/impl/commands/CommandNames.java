@@ -1,4 +1,4 @@
-package logic.impl.commands;
+package ru.dev.ToDoList.logic.impl.commands;
 
 public class CommandNames {
     public final static String COMMAND_ADD = "add";
