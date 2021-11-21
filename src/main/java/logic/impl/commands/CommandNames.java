@@ -1,4 +1,4 @@
-package commands;
+package logic.impl.commands;
 
 public class CommandNames {
     public final static String COMMAND_ADD = "add";

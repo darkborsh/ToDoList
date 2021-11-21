@@ -5,10 +5,11 @@ import lombok.Data;
 @Data
 public class Task {
     private boolean isCompleted;
+    private long id;
     private String description;
 
-    public Task(String desc) {
+    public Task(String description) {
         isCompleted = false;
-        description = desc;
+        this.description = description;
     }
 }
