@@ -1,13 +1,15 @@
-package logic.impl;
+package ru.dev.ToDoList.logic.impl;
 
-import logic.TaskDao;
-import model.Task;
+import org.springframework.stereotype.Component;
+import ru.dev.ToDoList.logic.TaskDao;
+import ru.dev.ToDoList.model.Task;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+@Component
 public class TaskDaoImpl implements TaskDao {
     private final List<Task> storage = new ArrayList<>();
     private long counter = 0;

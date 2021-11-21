@@ -1,10 +1,12 @@
-package presenters.impl;
+package ru.dev.ToDoList.presenters.impl;
 
-import presenters.TaskPrinter;
-import model.Task;
+import org.springframework.stereotype.Component;
+import ru.dev.ToDoList.presenters.TaskPrinter;
+import ru.dev.ToDoList.model.Task;
 
 import java.util.stream.Stream;
 
+@Component
 public class TaskPrinterImpl implements TaskPrinter {
     @Override
     public void print(Stream<Task> tasks) {

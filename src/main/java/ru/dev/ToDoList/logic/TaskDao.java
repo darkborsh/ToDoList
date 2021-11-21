@@ -1,6 +1,6 @@
-package logic;
+package ru.dev.ToDoList.logic;
 
-import model.Task;
+import ru.dev.ToDoList.model.Task;
 
 import java.util.Optional;
 import java.util.stream.Stream;

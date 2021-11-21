@@ -1,11 +1,13 @@
-package presenters.impl.parser;
+package ru.dev.ToDoList.presenters.impl.parser;
 
-import model.CommandFormat;
+import org.springframework.stereotype.Component;
+import ru.dev.ToDoList.model.CommandFormat;
 
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Component
 public class InputProcessor implements Function<String, CommandFormat> {
     private final Pattern COMMAND_FORMAT =
             Pattern.compile("\\s*(?<cmd>\\w+)(?:\\s+(?<args>(?:(?<id>\\d+)\\b)?(?<text>.*)))?");

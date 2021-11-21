@@ -1,6 +1,6 @@
-package presenters;
+package ru.dev.ToDoList.presenters;
 
-import model.Task;
+import ru.dev.ToDoList.model.Task;
 
 import java.util.stream.Stream;
 

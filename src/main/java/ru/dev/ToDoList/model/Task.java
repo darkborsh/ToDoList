@@ -1,4 +1,4 @@
-package model;
+package ru.dev.ToDoList.model;
 
 import lombok.Data;
 

@@ -1,7 +1,9 @@
-package presenters.impl;
+package ru.dev.ToDoList.presenters.impl;
 
-import presenters.ErrorHandler;
+import org.springframework.stereotype.Component;
+import ru.dev.ToDoList.presenters.ErrorHandler;
 
+@Component
 public class ErrorHandlerImpl implements ErrorHandler {
     @Override
     public void handle(String error) {
