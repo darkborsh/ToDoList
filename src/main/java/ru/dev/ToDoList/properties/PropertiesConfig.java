@@ -29,7 +29,7 @@ public class PropertiesConfig {
             final EditValidator editValidator, final EditExecutor editExecutor,
             final QuitValidator quitValidator, final QuitExecutor quitExecutor
             ) {
-        HashMap<String, Pair<Predicate<CommandFormat>, BiConsumer<CommandFormat, TaskDao>>> map = new HashMap<>();
+        Map<String, Pair<Predicate<CommandFormat>, BiConsumer<CommandFormat, TaskDao>>> map = new HashMap<>();
         map.put(CommandNames.COMMAND_ADD, new Pair<>(textValidator, addExecutor));
         map.put(CommandNames.COMMAND_PRINT, new Pair<>(printValidator, printExecutor));
         map.put(CommandNames.COMMAND_EDIT, new Pair<>(editValidator, editExecutor));

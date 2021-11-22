@@ -7,18 +7,17 @@ import ru.dev.ToDoList.logic.TaskDao;
 import ru.dev.ToDoList.presenters.ErrorHandler;
 import ru.dev.ToDoList.model.CommandFormat;
 
+import java.util.Map;
 import java.util.function.*;
 
 @Component
 public class CommandConsumer implements Consumer<CommandFormat> {
-    private final Function<String, Pair<Predicate<CommandFormat>, BiConsumer<CommandFormat, TaskDao>>> commandFactory;
+    private final Map<String, Pair<Predicate<CommandFormat>, BiConsumer<CommandFormat, TaskDao>>> commandFactory;
     private final ErrorHandler errorHandler;
     private final TaskDao taskDao;
 
     @Autowired
-    public CommandConsumer(Function<String,
-            Pair<Predicate<CommandFormat>, BiConsumer<CommandFormat, TaskDao>>> commandFactory,
-                           ErrorHandler errorHandler,
+    public CommandConsumer(Map<String, Pair<Predicate<CommandFormat>, BiConsumer<CommandFormat, TaskDao>>> commandFactory, ErrorHandler errorHandler,
                            TaskDao taskDao) {
         this.commandFactory = commandFactory;
         this.errorHandler = errorHandler;
@@ -29,7 +28,7 @@ public class CommandConsumer implements Consumer<CommandFormat> {
     public void accept(CommandFormat commandFormat) {
         Pair<Predicate<CommandFormat>, BiConsumer<CommandFormat, TaskDao>> consumer = null;
         if (commandFormat != null) {
-            consumer = commandFactory.apply(commandFormat.getName());
+            consumer = commandFactory.get(commandFormat.getName());
         }
         if (consumer != null) {
             if (consumer.getKey().test(commandFormat)) {
