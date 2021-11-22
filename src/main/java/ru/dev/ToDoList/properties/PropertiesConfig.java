@@ -11,8 +11,6 @@ import ru.dev.ToDoList.logic.impl.commands.executors.*;
 import ru.dev.ToDoList.logic.impl.commands.validators.*;
 import ru.dev.ToDoList.model.CommandFormat;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -20,11 +18,6 @@ import java.util.function.Predicate;
 
 @Configuration
 public class PropertiesConfig {
-    @Bean
-    BufferedReader bufferedReader() {
-        return new BufferedReader(new InputStreamReader(System.in));
-    }
-
     @Bean(name = "commands")
     Map<String, Pair<Predicate<CommandFormat>, BiConsumer<CommandFormat, TaskDao>>> commands(
             @Autowired

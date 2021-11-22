@@ -10,6 +10,7 @@ import ru.dev.ToDoList.model.CommandFormat;
 import ru.dev.ToDoList.presenters.impl.parser.InputProcessor;
 
 import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.function.Consumer;
 
 
@@ -20,8 +21,8 @@ public class Main implements CommandLineRunner {
     final Consumer<CommandFormat> consumer;
 
     @Autowired
-    public Main(BufferedReader reader, InputProcessor inputProcessor, CommandConsumer consumer) {
-        this.reader = reader;
+    public Main(InputProcessor inputProcessor, CommandConsumer consumer) {
+        this.reader = new BufferedReader(new InputStreamReader(System.in));
         this.inputProcessor = inputProcessor;
         this.consumer = consumer;
     }
