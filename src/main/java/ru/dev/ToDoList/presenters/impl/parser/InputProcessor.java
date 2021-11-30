@@ -25,7 +25,11 @@ public class InputProcessor implements Function<String, CommandFormat> {
                     .text(cmdMatcher.group("text"));
             String taskId = cmdMatcher.group("id");
             if (taskId != null) {
-                builder.id(Long.parseLong(taskId));
+                try {
+                    builder.id(Long.parseLong(taskId));
+                } catch (NumberFormatException ex) {
+                    log.error("Cannot parse number: {}", taskId, ex);
+                }
             }
             return builder.build();
         }
