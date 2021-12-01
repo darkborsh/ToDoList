@@ -6,7 +6,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 
 import ru.dev.ToDoList.logic.impl.commands.CommandConsumer;
-import ru.dev.ToDoList.model.CommandFormat;
 import ru.dev.ToDoList.presenters.impl.parser.InputProcessor;
 
 import java.io.BufferedReader;
