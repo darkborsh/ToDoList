@@ -2,7 +2,7 @@ package ru.dev.ToDoList.logic.impl.commands;
 
 import org.springframework.stereotype.Component;
 import ru.dev.ToDoList.logic.TaskDao;
-import ru.dev.ToDoList.logic.impl.Command;
+import ru.dev.ToDoList.logic.Command;
 import ru.dev.ToDoList.model.CommandFormat;
 import ru.dev.ToDoList.model.Task;
 
@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 @Component
 public class AddCommand implements Command {
-    public static final String NAME = "add";
+    private static final String NAME = "add";
 
     @Override
     public Optional<String> validate(CommandFormat cmdFormat) {
@@ -26,5 +26,10 @@ public class AddCommand implements Command {
     public Stream<Task> apply(CommandFormat cmdFormat, TaskDao taskDao) {
         taskDao.save(new Task(cmdFormat.getArgs()));
         return Stream.empty();
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
     }
 }
