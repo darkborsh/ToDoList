@@ -1,19 +1,19 @@
 package ru.dev.ToDoList.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+@Entity
+@NoArgsConstructor
 @Data
 public class Task {
-    private boolean isCompleted;
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
+    private boolean isCompleted;
     @NotBlank
     private String description;
-
-    public Task(long id, String description) {
-        this.id = id;
-        isCompleted = false;
-        this.description = description;
-    }
 }

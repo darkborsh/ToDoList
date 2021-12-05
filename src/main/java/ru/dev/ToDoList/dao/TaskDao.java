@@ -1,13 +1,11 @@
 package ru.dev.ToDoList.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import ru.dev.ToDoList.model.Task;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface TaskDao {
-    Optional<Task> get(long id);
-    void save(Task task);
-    void delete(long id);
-    List<Task> getList(boolean isAll, String substring);
+public interface TaskDao extends JpaRepository<Task, Long> {
+    List<Task> findAllByIsCompleted(boolean isCompleted);
+    List<Task> findAllByDescriptionIsLike(String substring);
 }
