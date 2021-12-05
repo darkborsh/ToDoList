@@ -21,7 +21,6 @@ import java.util.function.Consumer;
 
 @RequiredArgsConstructor
 @RestController
-@Slf4j
 @RequestMapping("/api/tasks")
 public class TasksController {
     private final TaskDao taskDao;
@@ -33,7 +32,6 @@ public class TasksController {
             taskDao.save(task.get());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (EntityNotFoundException e) {
-            log.error("Error in command, Status - NOT_FOUND");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -66,7 +64,6 @@ public class TasksController {
     @Transactional
     @PatchMapping("/{id}/completed")
     public ResponseEntity<String> statusUpdate(@PathVariable("id") @Min(1) long id, @Valid @RequestBody StatusHolder status) {
-        log.debug("Command: toggle, id: {}", id);
         return actionWithId(id, task -> task.setCompleted(status.isCompleted()));
     }
 
