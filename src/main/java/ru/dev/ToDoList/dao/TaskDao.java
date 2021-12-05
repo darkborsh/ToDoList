@@ -3,11 +3,11 @@ package ru.dev.ToDoList.dao;
 import ru.dev.ToDoList.model.Task;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TaskDao {
-    void add(TaskDescription taskDescription);
-    void toggle(long id);
+    Optional<Task> get(long id);
+    void save(Task task);
     void delete(long id);
-    void edit(long id, TaskDescription taskDescription);
     List<Task> getList(boolean isAll, String substring);
 }
