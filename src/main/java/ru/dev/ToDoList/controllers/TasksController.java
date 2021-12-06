@@ -29,9 +29,9 @@ public class TasksController {
             Optional<Task> task = Optional.of(taskDao.getById(id));
             command.accept(task.get());
             taskDao.save(task.get());
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return ResponseEntity.noContent().build();
         } catch (EntityNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -57,7 +57,7 @@ public class TasksController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTask(@PathVariable("id") @Min(1) long id) {
         taskDao.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 
     @Transactional
