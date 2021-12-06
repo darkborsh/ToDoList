@@ -1,5 +1,6 @@
 package ru.dev.ToDoList.presenters.impl.parser;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.dev.ToDoList.model.CommandFormat;
 
@@ -8,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
+@Slf4j
 public class InputProcessor implements Function<String, CommandFormat> {
     private final Pattern COMMAND_FORMAT =
             Pattern.compile("\\s*(?<cmd>\\w+)(?:\\s+(?<args>(?:(?<id>\\d+)\\b)?(?<text>.*)))?");
@@ -15,6 +17,7 @@ public class InputProcessor implements Function<String, CommandFormat> {
     @Override
     public CommandFormat apply(String userInput) {
         Matcher cmdMatcher = COMMAND_FORMAT.matcher(userInput);
+        log.debug("User input: {}", userInput);
         if (cmdMatcher.find()) {
             CommandFormat.CommandFormatBuilder builder = CommandFormat.builder()
                     .name(cmdMatcher.group("cmd"))
@@ -22,7 +25,11 @@ public class InputProcessor implements Function<String, CommandFormat> {
                     .text(cmdMatcher.group("text"));
             String taskId = cmdMatcher.group("id");
             if (taskId != null) {
-                builder.id(Long.parseLong(taskId));
+                try {
+                    builder.id(Long.parseLong(taskId));
+                } catch (NumberFormatException ex) {
+                    log.error("Cannot parse number: {}", taskId, ex);
+                }
             }
             return builder.build();
         }
