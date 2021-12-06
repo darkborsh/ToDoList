@@ -1,6 +1,5 @@
 package ru.dev.ToDoList.service;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.dev.ToDoList.dao.TaskDao;
 import ru.dev.ToDoList.model.Task;
@@ -23,9 +22,8 @@ public class TaskDaoImpl implements TaskDao {
 
     @Override
     public void save(Task task) {
-        task.setId(taskCounter + 1);
+        task.setId(taskCounter++);
         tasks.add(task);
-        taskCounter++;
     }
 
     @Override
