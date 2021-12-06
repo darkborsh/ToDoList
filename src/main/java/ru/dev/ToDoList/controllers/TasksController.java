@@ -25,9 +25,9 @@ public class TasksController {
         Optional<Task> task = taskDao.get(id);
         if (task.isPresent()) {
             command.accept(task.get());
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return ResponseEntity.noContent().build();
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -46,7 +46,7 @@ public class TasksController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTask(@PathVariable("id") long id) {
         taskDao.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{id}/completed")
