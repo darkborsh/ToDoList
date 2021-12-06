@@ -1,0 +1,238 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "My Implementation of TODO",
+    "version": "1.0",
+    "title": "ToDoList"
+  },
+  "host": "localhost:8081",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "task-controller",
+      "description": "Task Controller"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/task": {
+      "get": {
+        "tags": [
+          "task-controller"
+        ],
+        "summary": "returns a list of tasks sorted by arguments",
+        "operationId": "get list",
+        "parameters": [
+          {
+            "name": "isAll",
+            "in": "query",
+            "description": "returns only undone tasks if \"false\", otherwise all tasks",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "substring",
+            "in": "query",
+            "description": "substring which can be in tasks",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Task"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "task-controller"
+        ],
+        "summary": "creates new task",
+        "operationId": "create",
+        "parameters": [
+          {
+            "name": "StatusAndDescription",
+            "in": "body",
+            "description": "task wirh description and status",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StatusAndDescription"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "created",
+            "headers": {
+              "Location": {
+                "type": "string",
+                "description": "new task addres"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/task/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "task id",
+          "required": true,
+          "type": "integer",
+          "format": "int64"
+        }
+      ],
+      "patch": {
+        "tags": [
+          "task-controller"
+        ],
+        "summary": "updates task description",
+        "operationId": "update",
+        "parameters": [
+          {
+            "name": "task",
+            "in": "body",
+            "description": "task description holder",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DescriptionHolder"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "task-controller"
+        ],
+        "summary": "delete task from list",
+        "operationId": "delete",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/task/{id}/completed": {
+      "patch": {
+        "tags": [
+          "task-controller"
+        ],
+        "summary": "toggle \"Completed\" status of task",
+        "operationId": "toggle",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "body",
+            "description": "task status holder",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StatusHolder"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "task id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "StatusAndDescription": {
+      "type": "object",
+      "required": [
+        "description",
+        "completed"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "completed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "StatusHolder": {
+      "type": "object",
+      "required": [
+        "completed"
+      ],
+      "properties": {
+        "completed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "DescriptionHolder": {
+      "type": "object",
+      "required": [
+        "description"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "Task": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/DescriptionHolder"
+        },
+        {
+          "$ref": "#/definitions/StatusHolder"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      ],
+      "title": "Task"
+    }
+  }
+}
