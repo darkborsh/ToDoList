@@ -11,6 +11,6 @@ import java.util.List;
 public interface TaskMapper {
     TaskMapper INSTANCE = Mappers.getMapper( TaskMapper.class );
 
-    public TaskDto toDto(Task task);
-    public List<TaskDto> toDtoList (List<Task> taskList);
+    TaskDto toDto(Task task);
+    List<TaskDto> toDtoList (List<Task> taskList);
 }

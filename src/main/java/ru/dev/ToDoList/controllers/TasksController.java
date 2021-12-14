@@ -1,4 +1,4 @@
-package ru.dev.ToDoList.controllers;
+/*package ru.dev.ToDoList.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -70,4 +70,4 @@ public class TasksController {
     public ResponseEntity<String> descriptionUpdate(@PathVariable("id") @Min(1) long id, @Valid @RequestBody DescriptionHolder desc) {
         return actionWithId(id, task -> task.setDescription(desc.getDescription()));
     }
-}
+}*/

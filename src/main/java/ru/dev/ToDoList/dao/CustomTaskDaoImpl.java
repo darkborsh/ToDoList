@@ -1,4 +1,4 @@
-package ru.dev.ToDoList.dao;
+/*package ru.dev.ToDoList.dao;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
@@ -15,7 +15,7 @@ import java.util.List;
 public class CustomTaskDaoImpl implements CustomTaskDao {
     private final EntityManager entityManager;
 
-    public List<Task> find (long userId, String substring, boolean includeCompleted)  {
+    public List<Task> find(long userId, String substring, boolean includeCompleted)  {
         StringBuilder jpql = new StringBuilder("from Task t ");
         List<String> conditions = new ArrayList<>();
 
@@ -41,4 +41,4 @@ public class CustomTaskDaoImpl implements CustomTaskDao {
 
         return typedQuery.getResultList();
     }
-}
+}*/
