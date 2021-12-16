@@ -1,4 +1,4 @@
-/*package ru.dev.ToDoList.dao;
+package ru.dev.ToDoList.dao;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
@@ -15,22 +15,32 @@ import java.util.List;
 public class CustomTaskDaoImpl implements CustomTaskDao {
     private final EntityManager entityManager;
 
+    public Task findByIdAndUserId(long id, long userId) {
+        StringBuilder jpql =
+                new StringBuilder("from tasks t where t.user.id = ")
+                .append(userId)
+                .append(" and t.id = ")
+                .append(id);
+        TypedQuery<Task> typedQuery = entityManager.createQuery(jpql.toString(), Task.class);
+        return typedQuery.getSingleResult();
+    }
+
     public List<Task> find(long userId, String substring, boolean includeCompleted)  {
-        StringBuilder jpql = new StringBuilder("from Task t ");
+        StringBuilder jpql = new StringBuilder("from tasks t ");
         List<String> conditions = new ArrayList<>();
 
         if (Strings.isNotBlank(substring)) {
-            conditions.add("t.taskDescription like :desc");
+            conditions.add("t.description like :desc");
         }
 
         if (!includeCompleted) {
-            conditions.add("t.done = false");
+            conditions.add("t.isCompleted = false");
         }
 
         jpql.append("where t.user.id = ").append(userId);
 
         if (!conditions.isEmpty()) {
-            jpql.append(String.join(" and ", conditions));
+            jpql.append(" and ").append(String.join(" and ", conditions));
         }
 
         TypedQuery<Task> typedQuery = entityManager.createQuery(jpql.toString(), Task.class);
@@ -41,4 +51,4 @@ public class CustomTaskDaoImpl implements CustomTaskDao {
 
         return typedQuery.getResultList();
     }
-}*/
+}

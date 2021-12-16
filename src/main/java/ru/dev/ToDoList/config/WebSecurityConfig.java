@@ -1,4 +1,4 @@
-/*package ru.dev.ToDoList.config;
+package ru.dev.ToDoList.config;
 
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -27,8 +27,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .userDetailsService(userDetailsService)
                     .httpBasic()
                 .and()
-                    .csrf().disable();
-
+                    .csrf().disable()
+                    .formLogin().disable();
     }
 
     @Bean
@@ -36,4 +36,3 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 }
-*/

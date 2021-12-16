@@ -16,14 +16,8 @@ public class Task {
     @NotBlank
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     @NonNull
     private User user;
-
-    public Task(String description, boolean isCompleted, @NonNull User user) {
-        this.description = description;
-        this.isCompleted = isCompleted;
-        this.user = user;
-    }
 }

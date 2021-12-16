@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: "001-create"
+      id: "002-users"
       author: darkborsh
       changes:
         - createTable:
-            tableName: tasks
+            tableName: users
             columns:
               - column:
                   name: id
@@ -14,13 +14,18 @@ databaseChangeLog:
                     primatyKey: true
                     nullable: false
               - column:
-                  name: description
-                  type: varchar (512)
+                  name: name
+                  type: varchar (50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar (100)
                   constraints:
                     nullable: false
               - column:
-                  name: is_completed
-                  type: boolean
-                  defaultValueBoolean: false
+                  name: role
+                  type: varchar (30)
                   constraints:
                     nullable: false
