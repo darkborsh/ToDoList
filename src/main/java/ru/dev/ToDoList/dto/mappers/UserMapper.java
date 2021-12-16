@@ -7,10 +7,11 @@ import ru.dev.ToDoList.model.User;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper( UserMapper.class );
 
-    public UserDto toDto(User user);
-    public List<UserDto> toDtoList (List<User> userList);
+    UserDto toDto(User user);
+    User dtoToUser(UserDto dto);
+    List<UserDto> toDtoList (List<User> userList);
 }

@@ -40,7 +40,7 @@ public class CustomTaskDaoImpl implements CustomTaskDao {
         jpql.append("where t.user.id = ").append(userId);
 
         if (!conditions.isEmpty()) {
-            jpql.append(" and ").append(String.join(" and ", conditions));
+            jpql.append(String.join(" and ", conditions));
         }
 
         TypedQuery<Task> typedQuery = entityManager.createQuery(jpql.toString(), Task.class);
