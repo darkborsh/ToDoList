@@ -17,7 +17,7 @@ public class CustomTaskDaoImpl implements CustomTaskDao {
 
     public Task findByIdAndUserId(long id, long userId) {
         StringBuilder jpql =
-                new StringBuilder("from tasks t where t.user.id = ")
+                new StringBuilder("from Task t where t.user.id = ")
                 .append(userId)
                 .append(" and t.id = ")
                 .append(id);
@@ -26,7 +26,7 @@ public class CustomTaskDaoImpl implements CustomTaskDao {
     }
 
     public List<Task> find(long userId, String substring, boolean includeCompleted)  {
-        StringBuilder jpql = new StringBuilder("from tasks t ");
+        StringBuilder jpql = new StringBuilder("from Task t ");
         List<String> conditions = new ArrayList<>();
 
         if (Strings.isNotBlank(substring)) {

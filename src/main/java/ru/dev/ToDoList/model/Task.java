@@ -5,7 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-@Entity(name = "tasks")
+@Table(name = "tasks")
+@Entity
 @NoArgsConstructor
 @Data
 public class Task {
@@ -17,7 +18,7 @@ public class Task {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @NonNull
     private User user;
 }
