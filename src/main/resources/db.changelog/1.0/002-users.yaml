@@ -11,6 +11,7 @@ databaseChangeLog:
                   type: bigint
                   autoIncrement: true
                   constraints:
+                    unique: true
                     primatyKey: true
                     nullable: false
               - column:

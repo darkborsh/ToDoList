@@ -9,6 +9,5 @@ import ru.dev.ToDoList.model.Role;
 public class UserDto {
     private long id;
     private String name;
-    private String password;
     private Role role;
 }

@@ -17,8 +17,8 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
-    public List<User> getUsers() {
-        return userDao.findAll();
+    public List<UserDto> getUsers() {
+        return userMapper.toDtoList(userDao.findAll());
     }
 
     @Override
@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(UserDto userDto) {
-        userDao.save(userMapper.INSTANCE.dtoToUser(userDto));
+        userDao.save(userMapper.dtoToUser(userDto));
     }
 
     @Override

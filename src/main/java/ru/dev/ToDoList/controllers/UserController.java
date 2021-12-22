@@ -3,6 +3,7 @@ package ru.dev.ToDoList.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.dev.ToDoList.dto.UserDto;
 import ru.dev.ToDoList.dto.mappers.UserMapper;
 import ru.dev.ToDoList.model.User;
 import ru.dev.ToDoList.service.UserService;
@@ -20,13 +21,13 @@ public class UserController {
     private final UserMapper userMapper;
 
     @GetMapping
-    public List<User> getUsers() {
+    public List<UserDto> getUsers() {
         return userService.getUsers();
     }
 
     @PostMapping
-    public ResponseEntity<User> saveUser(@RequestBody @Valid User user){
-        userService.save(userMapper.INSTANCE.toDto(user));
+    public ResponseEntity<UserDto> saveUser(@RequestBody @Valid UserDto user){
+        userService.save(user);
         return ResponseEntity.created(URI.create("/tasks/" + user.getId())).body(user);
     }
 

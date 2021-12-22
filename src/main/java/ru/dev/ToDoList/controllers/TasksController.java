@@ -25,13 +25,13 @@ public class TasksController {
     @GetMapping
     public List<Task> getTasks(@RequestParam (name = "substring", required = false) String substring,
                         @RequestParam (name = "isAll", required = false) boolean isAll) {
-        return taskMapper.INSTANCE.toTaskList(taskService.getAll(substring, isAll));
+        return taskMapper.toTaskList(taskService.getAll(substring, isAll));
     }
 
     @PostMapping
     public ResponseEntity<Task> saveTask(@Valid @RequestBody Task task) {
-        taskService.save(taskMapper.INSTANCE.toDto(task));
-        return ResponseEntity.created(URI.create("/tasks/" + task.getId())).body(task);
+        Task t = taskService.save(taskMapper.toDto(task));
+        return ResponseEntity.created(URI.create("/tasks/" + t.getId())).body(t);
     }
 
     @DeleteMapping("/{id}")

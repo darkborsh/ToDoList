@@ -7,6 +7,7 @@ import ru.dev.ToDoList.dao.TaskDao;
 import ru.dev.ToDoList.dto.TaskDto;
 import ru.dev.ToDoList.dto.mappers.TaskMapper;
 import ru.dev.ToDoList.model.Task;
+import ru.dev.ToDoList.model.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,23 +20,31 @@ public class TaskServiceImpl implements TaskService {
     private final TaskMapper taskMapper;
     private final UserService userService;
 
+    private String getUsernameByContext() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+    private User getUserByContext() {
+        return userService.getUserByName(getUsernameByContext()).get();
+    }
+
     private Optional<Task> get(long taskId) {
-        return Optional.of(taskDao.findByIdAndUserId(taskId,
-                userService.getUserByName(SecurityContextHolder.getContext().getAuthentication().getName()).get().getId()));
+        return Optional.of(taskDao.findByIdAndUserId(taskId, getUserByContext().getId()));
     }
 
     @Override
     public List<TaskDto> getAll(String substring, boolean includeCompleted) {
-        return taskMapper.INSTANCE.toDtoList(taskDao.find(userService.getUserByName(SecurityContextHolder.getContext().getAuthentication().getName()).get().getId(), substring, includeCompleted));
+        return taskMapper.toDtoList(taskDao.find(getUserByContext().getId(), substring, includeCompleted));
     }
 
     @Override
-    public void save(TaskDto taskDto) {
+    public Task save(TaskDto taskDto) {
         Task t = new Task();
         t.setDescription(taskDto.getDescription());
         t.setCompleted(taskDto.isCompleted());
-        t.setUser(userService.getUserByName(SecurityContextHolder.getContext().getAuthentication().getName()).get());
+        t.setUser(this.getUserByContext());
         taskDao.save(t);
+        return t;
     }
 
     @Override
