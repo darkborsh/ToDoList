@@ -57,8 +57,9 @@ public class TaskServiceImpl implements TaskService {
     private boolean actionUpdate(long taskId, Consumer<Task> command) {
         Optional<Task> task = this.get(taskId);
         if (task.isPresent()) {
-            command.accept(task.get());
-            taskDao.save(task.get());
+            var updatedTask = task.get();
+            command.accept(updatedTask);
+            taskDao.save(updatedTask);
             return true;
         } else {
             return false;

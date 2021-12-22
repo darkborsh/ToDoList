@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.dev.ToDoList.dto.UserDto;
 import ru.dev.ToDoList.dto.mappers.UserMapper;
-import ru.dev.ToDoList.model.User;
 import ru.dev.ToDoList.service.UserService;
 
 import javax.validation.Valid;
