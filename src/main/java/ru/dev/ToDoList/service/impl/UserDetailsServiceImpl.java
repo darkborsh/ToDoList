@@ -1,4 +1,4 @@
-package ru.dev.ToDoList.service;
+package ru.dev.ToDoList.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,4 +1,4 @@
-package ru.dev.ToDoList.service;
+package ru.dev.ToDoList.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,6 +9,8 @@ import ru.dev.ToDoList.dto.UserDto;
 import ru.dev.ToDoList.dto.mappers.TaskMapper;
 import ru.dev.ToDoList.dto.mappers.UserMapper;
 import ru.dev.ToDoList.model.DescriptionHolder;
+import ru.dev.ToDoList.service.TaskService;
+import ru.dev.ToDoList.service.UserService;
 
 import java.util.Collections;
 import java.util.List;

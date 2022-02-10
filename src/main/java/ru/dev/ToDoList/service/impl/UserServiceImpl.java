@@ -1,4 +1,4 @@
-package ru.dev.ToDoList.service;
+package ru.dev.ToDoList.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.dev.ToDoList.dao.UserDao;
 import ru.dev.ToDoList.dto.UserDto;
 import ru.dev.ToDoList.dto.mappers.UserMapper;
+import ru.dev.ToDoList.service.UserService;
 
 import java.util.List;
 import java.util.Optional;

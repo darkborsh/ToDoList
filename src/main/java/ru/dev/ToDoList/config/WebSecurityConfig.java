@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.dev.ToDoList.service.UserDetailsServiceImpl;
+import ru.dev.ToDoList.service.impl.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
