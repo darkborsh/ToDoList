@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: "001-create"
+      author: darkborsh
+      changes:
+        - createTable:
+            tableName: tasks
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    unique: true
+                    primatyKey: true
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar (512)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_completed
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false

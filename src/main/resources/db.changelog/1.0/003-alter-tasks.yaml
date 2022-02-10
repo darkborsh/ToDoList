@@ -1,0 +1,13 @@
+databaseChangeLog:
+- changeSet:
+    id: "003-alter-tasks"
+    author: darkborsh
+    changes:
+      - addColumn:
+          tableName: tasks
+          columns:
+            - column:
+                name: user_id
+                type: bigint
+                constraints:
+                    nullable: false

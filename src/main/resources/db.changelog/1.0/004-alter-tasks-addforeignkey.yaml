@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: "004-alter-tasks-addforeignkey"
+      author: darkborsh
+      changes:
+        -  addForeignKeyConstraint:
+             baseColumnNames: user_id
+             baseTableName: tasks
+             constraintName: fk_tasks_users
+             referencedColumnNames: id
+             referencedTableName: users
+             onDelete: CASCADE
