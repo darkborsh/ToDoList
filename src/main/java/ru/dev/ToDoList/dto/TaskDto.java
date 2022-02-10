@@ -9,4 +9,5 @@ public class TaskDto {
     private long id;
     private String description;
     private boolean isCompleted;
+    private String user;
 }

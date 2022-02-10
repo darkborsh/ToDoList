@@ -1,6 +1,7 @@
 package ru.dev.ToDoList.dto.mappers;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import ru.dev.ToDoList.dto.UserDto;
 import ru.dev.ToDoList.model.User;
 

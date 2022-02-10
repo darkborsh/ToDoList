@@ -1,5 +1,6 @@
 package ru.dev.ToDoList.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,6 +23,11 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(mappedBy = "user")
     private List<Task> tasks;
+
+    @Override
+    public String toString() {
+        return "Name: " + this.name;
+    }
 }

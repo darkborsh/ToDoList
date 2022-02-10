@@ -11,14 +11,14 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class Task {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private boolean isCompleted;
     @NotBlank
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     @NonNull
     private User user;
 }
