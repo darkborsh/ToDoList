@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.dev.ToDoList.dto.TaskDto;
-import ru.dev.ToDoList.dto.mappers.TaskMapper;
 import ru.dev.ToDoList.model.DescriptionHolder;
 import ru.dev.ToDoList.model.StatusHolder;
 import ru.dev.ToDoList.service.TaskService;
@@ -20,7 +19,6 @@ import java.util.List;
 @RequestMapping("/api/tasks")
 public class TasksController {
     private final TaskService taskService;
-    private final TaskMapper taskMapper;
 
     @Transactional
     @GetMapping

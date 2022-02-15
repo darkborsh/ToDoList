@@ -1,6 +1,7 @@
 package ru.dev.ToDoList.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.dev.ToDoList.model.Role;
 
